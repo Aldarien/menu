@@ -1,0 +1,12 @@
+action: create
+table: ingredients
+data:
+  fields:
+    - name: id
+      type: int
+      primary: true
+      unsigned: true
+      auto_increment: true
+    - name: description
+      type: varchar
+      length: 50
