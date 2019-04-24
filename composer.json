@@ -1,0 +1,32 @@
+{
+    "name": "aldarien/menu",
+    "description": "Monthly menu planner",
+    "type": "project",
+    "require": {
+        "slim/slim": "^3.12",
+        "aldarien/menu_models": "dev-develop"
+    },
+    "require-dev": {
+        "zeuxisoo/slim-whoops": "^0.6.5",
+        "kint-php/kint": "^3.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aldarien",
+            "email": "aldarien85@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "app",
+        "Menu\\": "src"
+      }
+    },
+    "repositories": [
+      {
+        "type": "path",
+        "url": "./menu_models/"
+      }
+    ]
+}
