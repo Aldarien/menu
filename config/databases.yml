@@ -1,0 +1,6 @@
+default:
+  host: localhost
+  name: menu
+  user:
+    name: menu
+    password: menu_pass

@@ -1,0 +1,5 @@
+base: "dirname(dirname(__DIR__))"
+cache: "{locations.base}/cache"
+resources: "{locations.base}/resources"
+views: "{locations.resources}/templates"
+routes: "{locations.resources}/routes"
