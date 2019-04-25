@@ -1,0 +1,29 @@
+action: create
+data:
+  table: recipes_categories
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        auto_increment: true
+      - name: recipe_id
+        type:
+          name: int
+          unsigned: true
+      - name: category_id
+        type:
+          name: int
+          unsigned: true
+    references:
+      - local: recipe_id
+        table: recipes
+        keys: id
+        delete: cascade
+        update: cascade
+      - local: category_id
+        table: categories
+        keys: id
+        delete: cascade
+        update: cascade

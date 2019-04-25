@@ -1,0 +1,26 @@
+action: create
+data:
+  table: ingredients_types
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        auto_increment: true
+        primary: true
+      - name: ingredient_id
+        type:
+          name: int
+          unsigned: true
+    references:
+      - local: ingredient_id
+        table: ingredients
+        keys: id
+        delete: cascade
+        update: cascade
+      - local: type_id
+        table: ingredient_types
+        keys: id
+        delete: cascade
+        update: cascade

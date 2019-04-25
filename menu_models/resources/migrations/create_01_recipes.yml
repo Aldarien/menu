@@ -1,0 +1,19 @@
+action: create
+data:
+  table: recipes
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        auto_increment: true
+      - name: title
+        type:
+          name: varchar
+          length: 100
+      - name: image
+        type:
+          name: varchar
+          length: 255
+    primary: id

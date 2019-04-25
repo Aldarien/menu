@@ -1,0 +1,15 @@
+action: create
+data:
+  table: ingredients
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        auto_increment: true
+      - name: description
+        type:
+          name: varchar
+          length: 50
+    primary: id
