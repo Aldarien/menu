@@ -1,5 +1,5 @@
 <?php
-namespace App\Service\Config\Definition;
+namespace App\Definition;
 
 interface Loader {
   public function __construct(string $filename);

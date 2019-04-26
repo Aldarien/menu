@@ -1,0 +1,17 @@
+{
+    "name": "aldarien/definitions",
+    "description": "Definitions placeholder module",
+    "type": "module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aldarien",
+            "email": "aldarien85@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "app"
+      }
+    }
+}

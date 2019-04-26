@@ -1,12 +1,28 @@
 <?php
-namespace App\Service\Migrator;
+namespace Loader;
 
-class YMLMigrator implements MigratorInterface {
-  public function load($filename) {
-    $data = \yaml_parse_file($filename);
+use \Spyc;
+use App\Definition\Loader;
+
+class YAMLLoader implements Loader {
+  protected $name;
+  protected $filename;
+
+  public function __construct(string $filename) {
+    $this->filename = $filename;
+    $info = new \SplFileInfo($this->filename);
+    $this->name = $info->getBasename('.' . $info->getExtension());
+  }
+  public function load() {
+    //$data = \yaml_parse_file($filename);
+    $data = Spyc::YAMLLoad($this->filename);
     $this->arrayToObject($data);
     return $data;
   }
+  public function getName() {
+    return $this->name;
+  }
+
   protected function arrayToObject(&$array) {
     if (is_array($array) and array_keys($array) !== range(0, count($array) - 1)) {
       $array = (object) $array;

@@ -1,0 +1,10 @@
+action: insert
+data:
+  table: ingredient_types
+  columns:
+    - description
+  values:
+    - [proteina]
+    - [verdura]
+    - [fruta]
+    - [aliño]

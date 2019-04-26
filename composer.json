@@ -4,7 +4,13 @@
     "type": "project",
     "require": {
         "slim/slim": "^3.12",
-        "aldarien/menu_models": "dev-develop"
+        "aldarien/definitions": "dev-develop",
+        "aldarien/config": "dev-develop",
+        "aldarien/menu_models": "dev-develop",
+        "aldarien/model-migrator": "dev-develop",
+        "aldarien/query": "dev-develop",
+        "aldarien/loaders": "dev-develop",
+        "rubellum/slim-blade-view": "^0.1.1"
     },
     "require-dev": {
         "zeuxisoo/slim-whoops": "^0.6.5",
@@ -26,7 +32,27 @@
     "repositories": [
       {
         "type": "path",
+        "url": "./modules/Definitions"
+      },
+      {
+        "type": "path",
+        "url": "./modules/Config"
+      },
+      {
+        "type": "path",
         "url": "./menu_models/"
+      },
+      {
+        "type": "path",
+        "url": "./modules/ModelMigrator"
+      },
+      {
+        "type": "path",
+        "url": "./modules/Query"
+      },
+      {
+        "type": "path",
+        "url": "./modules/Loaders"
       }
     ]
 }

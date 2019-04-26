@@ -1,0 +1,32 @@
+{
+    "name": "aldarien/model-migrator",
+    "description": "Migrator module for Models",
+    "type": "module",
+    "require": {
+        "aldarien/query": "dev-develop",
+        "aldarien/loaders": "dev-develop"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aldarien",
+            "email": "aldarien85@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "app",
+        "ModelMigrator\\": "src"
+      }
+    },
+    "repositories": [
+      {
+        "type": "path",
+        "url": "../Query"
+      },
+      {
+        "type": "path",
+        "url": "../Loaders"
+      }
+    ]
+}

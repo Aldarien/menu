@@ -1,0 +1,23 @@
+{
+  "name": "menu",
+  "version": "1.0.0",
+  "description": "Monthly menu frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "moka"
+  },
+  "repository": {
+    "type": "git",
+    "url": "L:\\\\T\\\\Google Drive\\\\git\\\\menu.git"
+  },
+  "author": "Aldarien <aldarien85@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jquery": "^3.4.0",
+    "semantic-ui-sass": "^2.4.1",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
+  }
+}

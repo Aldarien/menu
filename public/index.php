@@ -1,16 +1,14 @@
 <?php
-use App\Service\Config;
-
 $include = [
-  dirname(dirname(__DIR__)),
+  dirname(__DIR__),
   'bootstrap',
-  'api.php'
+  'public.php'
 ];
 include_once implode(DIRECTORY_SEPARATOR, $include);
 
 $include = [
   $container->cfg->get('locations.routes'),
-  'api.php'
+  'public.php'
 ];
 include_once implode(DIRECTORY_SEPARATOR, $include);
 

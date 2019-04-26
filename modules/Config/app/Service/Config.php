@@ -6,9 +6,9 @@ class Config {
 
   public function __construct($config_folder = null) {
     if ($config_folder == null) {
-      $config_folder = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config';;
+      $config_folder = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config';
     }
-    $this->data = [];
+    $this->data = (object) [];
     $this->load($config_folder);
   }
 
@@ -18,13 +18,12 @@ class Config {
       if ($file->isDir()) {
         continue;
       }
-      $loader = __NAMESPACE__ . "\\Config\\" . strtoupper($file->getExtension()) . 'Loader';
+      $loader = implode("\\", ["Loader", str_replace('YML', 'YAML', strtoupper($file->getExtension()) . 'Loader')]);
       if (!class_exists($loader)) {
         continue;
       }
       $loader = new $loader($folder . DIRECTORY_SEPARATOR . $file->getFilename());
-      $data = $loader->load();
-      $this->data = array_merge($this->data, (array) $data);
+      $this->data->{$loader->getName()} = $loader->load();
     }
   }
   public function get($name, $current = null, $full = '') {
@@ -51,7 +50,7 @@ class Config {
     return $clean;
   }
   public function set($name, $value) {
-    $name = "['" . implode("']['", explode('.', $name)) . "']";
+    $name = "->" . implode("->", explode('.', $name));
     $str = "\$this->data{$name} = \$value;";
     eval($str);
   }
@@ -73,5 +72,6 @@ class Config {
       eval($str);
       return $output;
     }
+    return $value;
   }
 }

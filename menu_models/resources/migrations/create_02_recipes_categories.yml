@@ -12,18 +12,24 @@ data:
         type:
           name: int
           unsigned: true
+        references:
+          table: recipes
+          keys: id
+          delete: cascade
+          update: cascade
       - name: category_id
         type:
           name: int
           unsigned: true
+    primary: id
     references:
-      - local: recipe_id
-        table: recipes
-        keys: id
-        delete: cascade
-        update: cascade
+      #- local: recipe_id
+      #  table: recipes
+      #  keys: id
+      #  delete: cascade
+      #  update: cascade
       - local: category_id
-        table: categories
+        table: recipe_categories
         keys: id
         delete: cascade
         update: cascade

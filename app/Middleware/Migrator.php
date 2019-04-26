@@ -13,7 +13,6 @@ class Migrator {
   public function __invoke($request, $response, $next) {
     $migrator = new ModelMigrator($this->container);
     $migrator->load()->check()->migrate();
-    die();
     return $next($request, $response);
   }
 }

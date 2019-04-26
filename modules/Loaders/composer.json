@@ -1,0 +1,27 @@
+{
+    "name": "aldarien/loaders",
+    "description": "File loaders module",
+    "type": "module",
+    "require": {
+        "mustangostang/spyc": "^0.6.2",
+        "aldarien/definitions": "dev-develop"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aldarien",
+            "email": "aldarien85@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "Loader\\": "src"
+      }
+    },
+    "repositories": [
+      {
+        "type": "path",
+        "url": "../Definitions"
+      }
+    ]
+}

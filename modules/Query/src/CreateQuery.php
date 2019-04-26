@@ -1,65 +1,34 @@
 <?php
-namespace App\Service;
+namespace Query;
 
-use Psr\Container\ContainerInterface;
+use App\Definition\QueryInterface;
 
-class ModelMigrator {
-  protected $data;
-  protected $check;
-  protected $container;
+class CreateQuery implements QueryInterface {
+  protected $query;
+  protected $table;
+  /**
+   * Definitions
+   *  @property array $columns
+   *  [@property string $primary]
+   *  [@property array $references]
+   *  [@property array $constraints]
+   * @var [object]
+   */
+  protected $definitions;
+  /**
+   * Options
+   *  Not implemented
+   * @var [object]
+   */
+  protected $options;
+  /**
+   * Partitions
+   *  Not implemented
+   * @var [object]
+   */
+  protected $partitions;
 
-  public function __construct(ContainerInterface $container) {
-    $this->container = $container;
-  }
-
-  public function load() {
-    $dir = new \DirectoryIterator(implode(DIRECTORY_SEPARATOR, [dirname(dirname(__DIR__)), 'resources', 'migrations']));
-    $models = [];
-    foreach ($dir as $file) {
-      if ($file->isDir()) {
-        continue;
-      }
-      $class = implode("\\", ['App', 'Service', 'Migrator', strtoupper($file->getExtension()) . 'Migrator']);
-      $loader = new $class;
-      $data = $loader->load($file->getRealPath());
-      $this->data[$file->getBasename('.' . $file->getExtension())] = $data;
-    }
-    return $this;
-  }
-  public function check() {
-    foreach ($this->data as $i => $data) {
-      switch (strtolower($data->action)) {
-        case 'create':
-          $this->check[$i] = $this->checkCreate($data->data);
-        break;
-      }
-    }
-    return $this;
-  }
-  protected function checkCreate($data) {
-    $query = "SHOW TABLES LIKE '{$data->table}'";
-    $result = \ORM::getDb()->query($query);
-    if ($result->rowCount() == 1) {
-      return true;
-    }
-    return false;
-  }
-  public function migrate() {
-    $output = [];
-    foreach ($this->data as $i => $d) {
-      if ($this->check[$i]) {
-        continue;
-      }
-      $action = $d->action;
-      switch (strtolower($action)) {
-        case 'create':
-          $output []= $this->create($d->data);
-          break;
-      }
-    }
-    return ['migrations' => $output];
-  }
-  protected function create($data) {
+  public function parseData($data): QueryInterface {
     /**
      * Default
      * table_name
@@ -67,17 +36,35 @@ class ModelMigrator {
      * table_options
      * partition_options
      */
-    $table = $data->table;
-    $query = ["CREATE TABLE IF NOT EXISTS", '`' . $table . '`'];
-    $definitions = $this->parseDefinitions($data->definitions);
-    $query []= $definitions;
-    $partitions = [];
-    $options = [];
-    $query = implode(' ', $query);
-    $result = \ORM::getDb()->exec($query);
-    return ['action' => 'create', 'table' => $table, 'columns' => count($data->columns), 'result' => $result];
+    $this->setTable($data->table);
+    $this->setDefinitions($data->definitions);
+    return $this;
   }
-  protected function parseDefinitions($data) {
+  public function setTable(string $table): QueryInterface {
+    $this->table = $table;
+    return $this;
+  }
+  public function setDefinitions(object $definitions): QueryInterface {
+    $this->definitions = $definitions;
+    return $this;
+  }
+
+  public function build(): QueryInterface {
+    $query = ["CREATE TABLE IF NOT EXISTS", '`' . $this->table . '`'];
+    $definitions = $this->parseDefinitions();
+    $query []= $definitions;
+    $this->partitions = [];
+    $this->options = [];
+    $this->query = implode(' ', $query);
+    return $this;
+  }
+  public function execute(): array {
+    $result = \ORM::getDb()->exec($this->query);
+    return ['action' => 'create', 'table' => $this->table, 'columns' => count($this->definitions->columns), 'result' => $result];
+  }
+
+  protected function parseDefinitions() {
+    $data = $this->definitions;
     /**
      * Default $definitions
      * col_name column_definitions
@@ -174,7 +161,7 @@ class ModelMigrator {
     if (is_array($data->keys)) {
       $ref []= '(`' . implode('`, `', $data->keys) . '`)';
     } else {
-      $ref []= $data->keys;
+      $ref []= '(`' . $data->keys . '`)';
     }
     if (isset($data->delete)) {
       $ref []= 'ON DELETE ' . strtoupper($data->delete);
@@ -183,8 +170,5 @@ class ModelMigrator {
       $ref []= 'ON UPDATE ' . strtoupper($data->update);
     }
     return implode(' ', $ref);
-  }
-
-  public function rollback() {
   }
 }
