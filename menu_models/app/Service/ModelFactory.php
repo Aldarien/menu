@@ -17,6 +17,16 @@ class ModelFactory {
   public function __construct(ContainerInterface $container) {
     $this->container = $container;
   }
+  public function new(string $model_name) {
+    return Model::factory($model_name)->create();
+  }
+  public function create(string $model_name, array $data) {
+    $model = $this->find($model_name)->where($data)->one();
+    if (!$model) {
+      return Model::factory($model_name)->create($data);
+    }
+    return $model;
+  }
   public function find(string $model_name) {
     $this->model = $model_name;
     $this->columns = [];
@@ -70,7 +80,7 @@ class ModelFactory {
    * @param  array  $order [[column | column => order], ...]
    * @return [Factory]        [self]
    */
-  public function sort(array $order) {
+  public function sort(array $data) {
     if ($this->orders == [] or $this->orders == null) {
       $this->orders = $data;
       return $this;
@@ -100,8 +110,14 @@ class ModelFactory {
    * Find one
    * @return [Model] [The model that was found]
    */
-  public function one() {
+  public function one($id = null) {
+    if ($id != null) {
+      $this->where(['id' => $id]);
+    }
     $obj = $this->query()->findOne();
+    if (!$obj) {
+      return false;
+    }
     $obj->setContainer($this->container);
     return $obj;
   }
@@ -124,6 +140,7 @@ class ModelFactory {
     }
     return $output;
   }
+
   protected function getArray($obj) {
     $parent = $obj->asArray();
     foreach (get_class_methods($obj) as $method) {
@@ -138,16 +155,12 @@ class ModelFactory {
     }
     return $parent;
   }
-
   protected function query() {
     $query = Model::factory($this->model);
     $funcs = ['selects', 'joins', 'conditions', 'order', 'limit'];
     foreach ($funcs as $func) {
       $query = $this->{'parse'.ucfirst($func)}($query);
     }
-    /*$query = $this->parseConditions($query);
-    $query = $this->parseOrder($query);
-    $query = $this->parseLimit($query);*/
     return $query;
   }
   protected function parseSelects($orm) {

@@ -1,9 +1,9 @@
 @extends('layout.base')
 
 @section('content')
-  <ul>
+  <div class="ui striped list">
   @foreach ($types as $type)
-    <li>{{$type->description}}</li>
+    <div class="item">{{$type->description}}</div>
   @endforeach
-  </ul>
+  </div>
 @endsection

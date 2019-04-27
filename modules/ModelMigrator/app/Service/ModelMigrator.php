@@ -13,7 +13,7 @@ class ModelMigrator {
   }
 
   public function load() {
-    $dir = new \DirectoryIterator($this->container->cfg->get('locations.migrations'));
+    $dir = new \DirectoryIterator($this->container->cfg->get('locations.models.migrations'));
     $models = [];
     foreach ($dir as $file) {
       if ($file->isDir()) {
