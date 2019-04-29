@@ -36,6 +36,12 @@ class ModelFactory {
     $this->limit = [];
     return $this;
   }
+  public function reset(string $model_name) {
+    $str = "\$table = $model_name::getTable();";
+    eval($str);
+    $query = "ALTER TABLE " . $table . " AUTO_INCREMENT = 0";
+    \ORM::getDb()->exec($query);
+  }
   /**
    * Set which columns are selected in query
    * @param  array  $data [field, ...]

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "7727af1270e25158c7905da0ec2d3f9a",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Config",
-                "reference": "57adcddc6178fcd27d16e41023bb27cc278f2b87",
+                "reference": "e5f092439d36da8658929fc05a531e1f7e35f70b",
                 "shasum": null
             },
             "require": {
@@ -42,7 +42,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Definitions",
-                "reference": "fcbcb2cdc1b76a7090699714b80575b509adc0c1",
+                "reference": "0c93621292bd564e735f52b03f1497b9e6948837",
                 "shasum": null
             },
             "type": "module",
@@ -68,7 +68,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Loaders",
-                "reference": "bbf5d127b8b7bff98d2464b4709a16fcf424bd8c",
+                "reference": "b94b038a301c9fd66df472215a4b8643feadb3ed",
                 "shasum": null
             },
             "require": {
@@ -98,7 +98,7 @@
             "dist": {
                 "type": "path",
                 "url": "./menu_models",
-                "reference": "eb42fb82e300db5df7f95bf492572fcc1fe93622",
+                "reference": "d239c0eec83fe1889fb8ac04b9d9fb62ebb4fabf",
                 "shasum": null
             },
             "require": {
@@ -132,7 +132,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/ModelMigrator",
-                "reference": "68a2468eeb282539c139f07815edecdb84dbace9",
+                "reference": "15dfc937c60009d25be6cf49ccc243360ee07f9c",
                 "shasum": null
             },
             "require": {
@@ -163,7 +163,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Query",
-                "reference": "6e2b865d1e5004255a00c468fd826bc65c32f4ba",
+                "reference": "84a74b93c93e0a181f1dedcf8c6995b88b63a1ca",
                 "shasum": null
             },
             "type": "module",
@@ -755,16 +755,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.17.0",
+            "version": "2.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "9b49d637ad009e5e211142bc7492adcb19dbd645"
+                "reference": "96acbc0c03782e8115156dd4dd8b736267155066"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9b49d637ad009e5e211142bc7492adcb19dbd645",
-                "reference": "9b49d637ad009e5e211142bc7492adcb19dbd645",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/96acbc0c03782e8115156dd4dd8b736267155066",
+                "reference": "96acbc0c03782e8115156dd4dd8b736267155066",
                 "shasum": ""
             },
             "require": {
@@ -811,7 +811,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-04-17T08:51:36+00:00"
+            "time": "2019-04-27T18:04:27+00:00"
         },
         {
             "name": "nikic/fast-route",

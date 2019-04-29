@@ -1,29 +1,29 @@
 @extends('admin.layout.base')
 
 @section('admin_content')
-  <h1>Ingredientes</h1>
+  <h1>Tipos de Ingredientes</h1>
   <table class="ui table">
     <thead>
       <tr>
         <th>Descripci&oacute;n</th>
-        <th>Tipos</th>
+        <th>Ingredientes</th>
         <th class="right aligned">
-          <a href="{{$base_url}}/admin/ingredients/add"><i class="plus icon"></i></a>
+          <a href="{{$base_url}}/admin/ingredienttypes/add"><i class="plus icon"></i></a>
         </tr>
       </tr>
     </thead>
     <tbody>
-      @foreach ($ingredients as $ingredient)
+      @foreach ($types as $type)
         <tr>
-          <td><a href="{{$base_url}}/admin/ingredient/{{$ingredient->id}}">{{ucwords($ingredient->description)}}</a></td>
+          <td><a href="{{$base_url}}/admin/ingredienttype/{{$type->id}}">{{ucwords($type->description)}}</a></td>
           <td>
-            @if ($ingredient->types())
+            @if ($type->ingredients())
               <div class="ui grid">
                 <div class="row">
-                  @foreach ($ingredient->types('description') as $type)
+                  @foreach ($type->ingredients('description') as $ingredient)
                     <div class="column">
-                      <a href="{{$base_url}}/admin/ingredienttype/{{$type->id}}">
-                        {{ucwords($type->description)}}
+                      <a href="{{$base_url}}/admin/ingredient/{{$ingredient->id}}">
+                        {{ucwords($ingredient->description)}}
                       </a>
                     </div>
                   @endforeach

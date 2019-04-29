@@ -42,6 +42,9 @@ class Config {
       }
       return $this->get(implode('.', $name), $current->$f, $full);
     }
+    if (!isset($current->{$name[0]})) {
+      return null;
+    }
     $output = $current->{$name[0]};
     $clean = $this->clean($output);
     if ($clean != $output) {

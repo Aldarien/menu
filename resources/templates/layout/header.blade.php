@@ -1,4 +1,8 @@
 <header class="ui header">
-  <div class="logo"><img src="" /></div>
+  <br />
+  <h1>
+    <span class="logo"><img src="" /></span>
+    Menu
+  </h1>
   @include('layout.menu')
 </header>
