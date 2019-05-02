@@ -29,11 +29,7 @@ class ModelFactory {
   }
   public function find(string $model_name) {
     $this->model = $model_name;
-    $this->columns = [];
-    $this->joins = [];
-    $this->conditions = [];
-    $this->orders = [];
-    $this->limit = [];
+    $this->restart();
     return $this;
   }
   public function reset(string $model_name) {
@@ -147,13 +143,27 @@ class ModelFactory {
     return $output;
   }
 
+  protected function restart() {
+    $this->columns = [];
+    $this->joins = [];
+    $this->conditions = [];
+    $this->orders = [];
+    $this->limit = [];
+  }
   protected function getArray($obj) {
     $parent = $obj->asArray();
     foreach (get_class_methods($obj) as $method) {
-      if (ltrim($method, 'get') !== $method and ltrim($method, 'get') !== '') {
-        $sub = strtolower(trim($method, 'get'));
+      $trimmed = preg_replace('/^get/s', '', $method);
+      if ($trimmed !== $method and $trimmed !== '') {
+        $sub = strtolower($trimmed);
+        if ($sub == 'table') {
+          continue;
+        }
         $parent[$sub] = [];
         $arr = $obj->{$method}();
+        if (!$arr or !is_array($arr)) {
+          continue;
+        }
         foreach ($arr as $o) {
           $parent[$sub] []= $this->getArray($o);
         }

@@ -1,0 +1,15 @@
+action: create
+data:
+  table: steps
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        primary: true
+        auto_complete: true
+      - name: method
+        type:
+          name: varchar
+          length: 255

@@ -6,7 +6,7 @@ $app->add(function($request, $response, $next) {
   $response = $next($request, $response);
   $end = microtime(true) - $start;
   $response->getBody()->rewind();
-  $object = json_decode($response->getBody());
+  $object = (array) json_decode($response->getBody());
   $object['benchmark'] = ['Time' => $end];
   return $response->withJSON($object);
 });

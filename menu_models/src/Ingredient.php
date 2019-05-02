@@ -18,9 +18,9 @@ class Ingredient extends Model {
   }
   public function hasType($type) {
     if (ctype_digit($type)) {
-      $type = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('id', $type)->findOne();
+      $type = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('ingredienttypes.id', $type)->findOne();
     } else {
-      $type = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('description', $type)->findOne();
+      $type = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('ingredienttypes.description', $type)->findOne();
     }
     if (!$type) {
       return false;
@@ -50,6 +50,22 @@ class Ingredient extends Model {
       ->findOne();
     if ($it) {
       $it->delete();
+    }
+  }
+  protected $unit;
+  public function unit($recipe) {
+    if ($this->unit == null) {
+      $unit = $this->container->model->find(Unit::class)
+        ->select(['unit.*'])
+        ->join([
+          ['steps_ingredients', 'steps_ingredients.unit_id', 'unit.id'],
+          ['recipes_steps', 'recipes_steps.step_id', 'steps_ingredients.step_id']
+        ])
+        ->where([
+          ['steps_ingredients.ingredient_id', $this->id],
+          ['recipes_steps.recipe_id', $recipe->id]
+        ])
+        ->one();
     }
   }
 }

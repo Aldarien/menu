@@ -10,14 +10,17 @@ use App\Definition\Model;
 class IngredientType extends Model {
   public static $_table = 'ingredient_types';
 
-  public function ingredients() {
-    return $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->findMany();
+  public function ingredients(string $sort = '') {
+    if ($sort == '') {
+      return $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->findMany();
+    }
+    return $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->orderByAsc($sort)->findMany();
   }
   public function hasIngredient($ingredient) {
     if (ctype_digit($ingredient)) {
-      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->where('id', $ingredient)->findOne();
+      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->where('ingredients.id', $ingredient)->findOne();
     } else {
-      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->where('description', $ingredient)->findOne();
+      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->where('ingredients.description', $ingredient)->findOne();
     }
     if (!$ingredient) {
       return false;

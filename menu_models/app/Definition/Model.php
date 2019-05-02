@@ -9,6 +9,6 @@ class Model extends \Model {
     $this->container = $container;
   }
   public static function getTable() {
-    return self::__get_table_name(get_called_class());
+    return self::_get_table_name(get_called_class());
   }
 }

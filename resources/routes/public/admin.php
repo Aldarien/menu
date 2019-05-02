@@ -7,4 +7,6 @@ $app->group('/admin', function($app) {
 
   include_once 'admin/ingredients.php';
   include_once 'admin/ingredienttypes.php';
+  include_once 'admin/recipes.php';
+  include_once 'admin/recipecategories.php';
 });

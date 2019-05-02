@@ -19,4 +19,7 @@ class StepsIngredients extends Model {
   public function ingredient() {
     return $this->belongsTo(Ingredient::class, 'ingredient_id')->findOne();
   }
+  public function unit() {
+    return $this->belongsTo(Unit::class, 'unit_id')->findOne();
+  }
 }

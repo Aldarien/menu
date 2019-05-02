@@ -1,0 +1,19 @@
+action: create
+data:
+  table: units
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        primary: true
+        auto_complete: true
+      - name: description
+        type:
+          name: varchar
+          length: 50
+      - name: abreviation
+        type:
+          name: varchar
+          length: 5
