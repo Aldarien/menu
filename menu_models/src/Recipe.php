@@ -50,8 +50,34 @@ class Recipe extends Model {
       $it->delete();
     }
   }
+  protected $steps;
   public function steps() {
-    return $this->hasManyThrough(Step::class, 'recipes_steps', 'recipe_id', 'step_id')->orderByAsc('recipes_steps.order')->findMany();
+    if ($this->steps == null) {
+      $steps = $this->container->model->find(Step::class)
+        ->select('steps.*')
+        ->join([
+          ['recipes_steps', 'recipe_id', 'step_id']
+        ])
+        ->where([
+          'recipes_steps.recipe_id' => $this->id
+        ])
+        ->many();
+      $this->steps = $steps;
+    }
+    return $this->steps;
+  }
+  public function addStep(array $data) {
+    $step = $this->container->model->create(Step::class, $data);
+    $step->save();
+    $data = [
+      'recipe_id' => $this->id,
+      'step_id' => $step->id,
+      'order' => count($this->steps())
+    ];
+    $rs = $this->container->model->create(RecipesSteps::class, $data);
+    $rs->save();
+    $this->steps []= $step;
+    return $step;
   }
   protected $ingredients;
   public function ingredients() {

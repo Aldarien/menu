@@ -52,8 +52,7 @@
       <tbody>
         @foreach ($recipe->ingredients() as $ingredient)
           <tr>
-            <td>{{$ingredient->amount}}</td>
-            <td>{{$ingredient->unit($recipe)->description}}</td>
+            <td>{{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}}</td>
             <td>
               {{ucwords($ingredient->description)}}
             </td>
@@ -80,19 +79,13 @@
           <tr>
             <td>{{$step->order($recipe)}}</td>
             <td>
-              {{$step->method}}
-              <table class="ui table">
-                <thead>
-                  <tr>
-                    <th>Cantidad</th>
-                    <th>Ingrediente</th>
-                  </tr>
-                </thead>
-                @if ($step->ingredients())
-                  <tbody>
-                  </tbody>
-                @endif
-              </table>
+              {{$step->method()->description}}
+              @if ($step->ingredients())
+                @foreach ($step->ingredients() as $ingredient)
+                  {{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}} de {{$ingredient->description}}
+                @endforeach
+              @endif
+              en {{$step->method()->vessel()->description}}
             </td>
             <td class="right aligned">
               <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/step/{{$step->id}}/remove">

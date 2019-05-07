@@ -1,0 +1,20 @@
+action: create
+data:
+  table: steps
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        primary: true
+        auto_complete: true
+      - name: method_id
+        type:
+          name: int
+          unsigned: true
+        references:
+          table: methods
+          keys: id
+          delete: cascade
+          update: cascade

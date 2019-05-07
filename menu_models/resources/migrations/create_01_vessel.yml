@@ -1,6 +1,6 @@
 action: create
 data:
-  table: steps
+  table: vessels
   definitions:
     columns:
       - name: id
@@ -8,8 +8,8 @@ data:
           name: int
           unsigned: true
         primary: true
-        auto_complete: true
-      - name: method
+        auto_increment: true
+      - name: description
         type:
           name: varchar
-          length: 255
+          length: 50

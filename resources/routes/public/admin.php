@@ -5,8 +5,11 @@ $app->group('/admin', function($app) {
   $app->get('', Admin::class . ':config');
   $app->post('/config', Admin::class . ':do_config');
 
-  include_once 'admin/ingredients.php';
-  include_once 'admin/ingredienttypes.php';
-  include_once 'admin/recipes.php';
-  include_once 'admin/recipecategories.php';
+  $files = new DirectoryIterator(realpath($app->getContainer()->cfg->get('locations.routes') . '/public/admin'));
+  foreach ($files as $file) {
+    if ($file->isDir()) {
+      continue;
+    }
+    include_once $file->getRealPath();
+  }
 });

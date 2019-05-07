@@ -11,12 +11,12 @@ class IngredientsTypes extends Controller {
   public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
     if (isset($arguments['ingredient'])) {
       $ingredient = $this->container->model->find(Ingredient::class)->one($arguments['ingredient']);
-      $types = $this->container->model->find(IngredientType::class)->sort(['description'])->many();
+      $types = $this->container->model->find(IngredientType::class)->sort('description')->many();
       return $this->container->view->render($response, 'admin.ingredients.types.add', compact('ingredient', 'types'));
     }
     if (isset($arguments['ingredienttype'])) {
       $type = $this->container->model->find(IngredientType::class)->one($arguments['ingredienttype']);
-      $ingredients = $this->container->model->find(Ingredient::class)->sort(['description'])->many();
+      $ingredients = $this->container->model->find(Ingredient::class)->sort('description')->many();
       return $this->container->view->render($response, 'admin.ingredienttypes.ingredients.add', compact('ingredients', 'type'));
     }
   }

@@ -8,7 +8,7 @@ use Menu\Recipe;
 
 class Recipes extends Controller {
   public function list(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $recipes = $this->container->model->find(Recipe::class)->sort(['title'])->many();
+    $recipes = $this->container->model->find(Recipe::class)->sort('title')->many();
     return $this->container->view->render($response, 'admin.recipes.list', compact('recipes'));
   }
   public function show(RequestInterface $request, ResponseInterface $response, $arguments) {

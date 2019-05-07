@@ -8,7 +8,7 @@ use Menu\Ingredient;
 
 class Ingredients extends Controller {
   public function list(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $ingredients = $this->container->model->find(Ingredient::class)->sort(['description'])->many();
+    $ingredients = $this->container->model->find(Ingredient::class)->sort('description')->many();
     return $this->container->view->render($response, 'admin.ingredients.list', compact('ingredients'));
   }
   public function show(RequestInterface $request, ResponseInterface $response, $arguments) {

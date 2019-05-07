@@ -1,6 +1,6 @@
 action: create
 data:
-  table: recipes_categories
+  table: methods
   definitions:
     columns:
       - name: id
@@ -9,21 +9,16 @@ data:
           unsigned: true
         primary: true
         auto_increment: true
-      - name: recipe_id
+      - name: description
+        type:
+          name: varchar
+          length: 50
+      - name: vessel_id
         type:
           name: int
           unsigned: true
         references:
-          table: recipes
-          keys: id
-          delete: cascade
-          update: cascade
-      - name: category_id
-        type:
-          name: int
-          unsigned: true
-        references:
-          table: recipe_categories
+          table: vessels
           keys: id
           delete: cascade
           update: cascade

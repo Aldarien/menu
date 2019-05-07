@@ -43,7 +43,10 @@ class ModelFactory {
    * @param  array  $data [field, ...]
    * @return [Factory]       [self]
    */
-  public function select(array $data) {
+  public function select($data) {
+    if (!is_array($data)) {
+      $data = [$data];
+    }
     if ($this->columns == []) {
       $this->columns = $data;
       return $this;
@@ -82,7 +85,10 @@ class ModelFactory {
    * @param  array  $order [[column | column => order], ...]
    * @return [Factory]        [self]
    */
-  public function sort(array $data) {
+  public function sort($data) {
+    if (!is_array($data)) {
+      $data = [$data];
+    }
     if ($this->orders == [] or $this->orders == null) {
       $this->orders = $data;
       return $this;

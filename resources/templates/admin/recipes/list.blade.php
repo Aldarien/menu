@@ -15,7 +15,7 @@
     <tbody>
       @foreach ($recipes as $recipe)
         <tr>
-          <td><a href="{{$base_url}}/admin/recipe/{{$recipe->id}}">{{ucwords($recipe->title)}}</a></td>
+          <td><a href="{{$base_url}}/admin/recipe/{{$recipe->id}}">{{$recipe->title}}</a></td>
           <td>
             @if ($recipe->categories())
               <div class="ui grid">

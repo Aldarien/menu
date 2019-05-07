@@ -10,22 +10,41 @@ use App\Definition\Model;
 class Ingredient extends Model {
   public static $_table = 'ingredients';
 
+  protected $types;
   public function types(string $sort = '') {
-    if ($sort == '') {
-      return $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->findMany();
+    if ($this->types == null) {
+      $types = $this->container->model->find(IngredientType::class)
+        ->select('ingredient_types.*')
+        ->join([
+          ['ingredients_types', 'ingredients_types.type_id', 'ingredient_types.id']
+        ])
+        ->where([
+          'ingredients_types.ingredient_id' => $this->id
+        ]);
+        if ($sort != '') {
+          $types = $types->sort([$sort]);
+        }
+        $this->types = $types->many();
     }
-    return $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->orderByAsc($sort)->findMany();
+    return $this->types;
   }
+  protected $has_types = [];
   public function hasType($type) {
-    if (ctype_digit($type)) {
-      $type = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('ingredienttypes.id', $type)->findOne();
-    } else {
-      $type = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('ingredienttypes.description', $type)->findOne();
+    if (!isset($this->has_types[$type])) {
+      $type = $this->container->model->find(IngredientType::class)
+        ->select('1')
+        ->join([
+          ['ingredients_types', 'ingredients_types.type_id', 'ingredient_types.id']
+        ]);
+      if (ctype_digit($type)) {
+        $type = $type->where(['ingredient_types.id', $type]);
+      } else {
+        $type = $type->where(['ingredient_types.description', $type]);
+      }
+      $type = $type->one();
+      $this->has_types[$type] = (!$type) ? false : true;
     }
-    if (!$type) {
-      return false;
-    }
-    return true;
+    return $this->has_types[$type];
   }
   public function getTypes() {
     return $this->types();
@@ -41,6 +60,7 @@ class Ingredient extends Model {
       $st = \ORM::getDb()->prepare($query);
       $st->execute([$this->id, $type->id]);
     }
+    $this->types []= $type;
   }
   public function removeType($type_id) {
     $type = $this->container->model->find(IngredientType::class)->one($type_id);
@@ -56,16 +76,18 @@ class Ingredient extends Model {
   public function unit($recipe) {
     if ($this->unit == null) {
       $unit = $this->container->model->find(Unit::class)
-        ->select(['unit.*'])
+        ->select(['units.*'])
         ->join([
-          ['steps_ingredients', 'steps_ingredients.unit_id', 'unit.id'],
+          ['steps_ingredients', 'steps_ingredients.unit_id', 'units.id'],
           ['recipes_steps', 'recipes_steps.step_id', 'steps_ingredients.step_id']
         ])
         ->where([
-          ['steps_ingredients.ingredient_id', $this->id],
-          ['recipes_steps.recipe_id', $recipe->id]
+          'steps_ingredients.ingredient_id' => $this->id,
+          'recipes_steps.recipe_id' => $recipe->id
         ])
         ->one();
+      $this->unit = $unit;
     }
+    return $this->unit;
   }
 }
