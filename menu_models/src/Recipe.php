@@ -12,25 +12,32 @@ use App\Definition\Model;
 class Recipe extends Model {
   public static $_table = 'recipes';
 
+  protected $categories;
   public function categories(string $sort = '') {
-    if ($sort == '') {
-      return $this->hasManyThrough(RecipeCategory::class, 'recipes_categories', 'recipe_id', 'category_id')->findMany();
+    if ($this->categories == null) {
+      $categories = $this->hasManyThrough(Category::class, 'recipes_categories', 'recipe_id', 'category_id');
+      if ($sort != '') {
+        $categories = $categories->sort(['recipe_categories.' . $sort]);
+      }
+      $this->categories = $categories->many();
     }
-    return $this->hasManyThrough(RecipeCategory::class, 'recipes_categories', 'recipe_id', 'category_id')->orderByAsc('recipe_categories.' . $sort)->findMany();
+    return $this->categories;
   }
+  protected $has_category = [];
   public function hasCategory($category) {
-    if (ctype_digit($category)) {
-      $category = $this->hasManyThrough(RecipeCategory::class, 'recipes_categories', 'recipe_id', 'category_id')->where('categories.id', $category)->findOne();
-    } else {
-      $category = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id')->where('categories.description', $category)->findOne();
+    if (!isset($this->has_category[$category])) {
+      $where = 'id';
+      if (!ctype_digit($category)) {
+        $where = 'description';
+      }
+      $category = $this->hasManyThrough(Category::class, 'recipes_categories', 'recipe_id', 'category_id')
+        ->where(['categories.' . $where, $category])->one();
+      $this->has_category[$category] = (!$category) ? false : true;
     }
-    if (!$category) {
-      return false;
-    }
-    return true;
+    return $this->has_category[$category];
   }
   public function addCategory($category_id) {
-    $category = $this->container->model->find(RecipeCategory::class)->one($category_id);
+    $category = $this->container->model->find(Category::class)->one($category_id);
     $rc = \ORM::for_table('recipes_categories')
       ->where('recipe_id', $this->id)
       ->where('category_id', $category->id)
@@ -42,7 +49,7 @@ class Recipe extends Model {
     }
   }
   public function removeCategory($category_id) {
-    $category = $this->container->model->find(RecipeCategory::class)->one($type_id);
+    $category = $this->container->model->find(Category::class)->one($type_id);
     $it = \ORM::for_table('recipes_categories')
       ->where('recipe_id', $this->id)
       ->where('category_id', $category->id)
@@ -54,15 +61,7 @@ class Recipe extends Model {
   protected $steps;
   public function steps() {
     if ($this->steps == null) {
-      $steps = $this->container->model->find(Step::class)
-        ->select('steps.*')
-        ->join([
-          ['recipes_steps', 'recipe_id', 'step_id']
-        ])
-        ->where([
-          'recipes_steps.recipe_id' => $this->id
-        ])
-        ->many();
+      $steps = $this->hasManyThrough(Step::class, RecipesSteps::class, 'recipe_id', 'step_id')->many();
       $this->steps = $steps;
     }
     return $this->steps;
@@ -94,5 +93,16 @@ class Recipe extends Model {
       $this->ingredients = $ingredients;
     }
     return $this->ingredients;
+  }
+
+  public function __toArray(): array {
+    $arr = parent::__toArray();
+    $arr['categories'] = array_map(function($item) {
+      return $item->__toArray();
+    }, $this->categories);
+    $arr['steps'] = array_map(function($item) {
+      return $item->__toArray();
+    }, $this->steps());
+    return $arr;
   }
 }

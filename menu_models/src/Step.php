@@ -11,10 +11,7 @@ class Step extends Model {
   public static $_table = 'steps';
 
   public function method() {
-    return $this->belongsTo(Method::class, 'method_id')->findOne();
-  }
-  public function getMethod() {
-    return $this->method();
+    return $this->belongsTo(Method::class, 'method_id')->one();
   }
   public function addIngredient(array $data) {
     $data['step_id'] = $this->id;
@@ -24,14 +21,8 @@ class Step extends Model {
   protected $ingredients;
   public function ingredients() {
     if ($this->ingredients == null) {
-      $ingredients = $this->container->model->find(Ingredient::class)
+      $ingredients = $this->hasManyThrough(Ingredient::class, 'steps_ingredients', 'step_id', 'ingredient_id')
         ->select(['ingredients.*', 'steps_ingredients.amount'])
-        ->join([
-          ['steps_ingredients', 'steps_ingredients.ingredient_id', 'ingredients.id']
-        ])
-        ->where([
-          'steps_ingredients.step_id' => $this->id
-        ])
         ->many();
       $this->ingredients = $ingredients;
     }
@@ -40,7 +31,8 @@ class Step extends Model {
   protected $recipes;
   public function recipes() {
     if ($this->recipes == null) {
-      $recipes = $this->container->model->find(Recipe::class)
+      $recipes = $this->hasManyThrough(Recipe::class, RecipesSteps::class, 'recipe_id', 'step_id')->many();
+      /*$recipes = $this->container->model->find(Recipe::class)
         ->select('recipes.*')
         ->join([
           ['recipes_steps', 'recipes_steps.recipe_id', 'recipes.id']
@@ -48,7 +40,7 @@ class Step extends Model {
         ->where([
           'recipes_steps.step_id' => $this->id
         ])
-        ->many();
+        ->many();*/
       $this->recipes = $recipes;
     }
     return $recipes;
@@ -71,7 +63,12 @@ class Step extends Model {
     return $this->order;
   }
 
-  public function getIngredients() {
-    return $this->ingredients();
+  public function __toArray(): array {
+    $arr = parent::__toArray();
+    $arr['method'] = $this->method()->__toArray();
+    $arr['ingredients'] = array_map(function($item) {
+      return $item->__toArray();
+    }, $this->ingredients());
+    return $arr;
   }
 }

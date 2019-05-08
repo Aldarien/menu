@@ -4,15 +4,15 @@ namespace App\Controller\Admin;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Definition\Controller;
-use Menu\RecipeCategory;
+use Menu\Category;
 
-class RecipeCategories extends Controller {
+class Categories extends Controller {
   public function list(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $categories = $this->container->model->find(RecipeCategory::class)->sort('description')->many();
+    $categories = $this->container->model->find(Category::class)->sort('description')->many();
     return $this->container->view->render($response, 'admin.recipes.categories.list', compact('categories'));
   }
   public function show(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $category = $this->container->model->find(RecipeCategory::class)->one($arguments['category']);
+    $category = $this->container->model->find(Category::class)->one($arguments['category']);
     return $this->container->view->render($response, 'admin.recipes.categories.show', compact('category'));
   }
   public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
@@ -23,8 +23,8 @@ class RecipeCategories extends Controller {
     $data = [
       'description' => $post['description']
     ];
-    $category = $this->container->model->create(RecipeCategory::class, $data);
+    $category = $this->container->model->create(Category::class, $data);
     $category->save();
-    return $response->withRedirect($this->container->base_url . '/admin/recipecategories');
+    return $response->withRedirect($this->container->base_url . '/admin/categories');
   }
 }

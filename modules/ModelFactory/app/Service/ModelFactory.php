@@ -138,6 +138,9 @@ class ModelFactory {
    */
   public function many() {
     $objs = $this->query()->findMany();
+    if (!$objs) {
+      return false;
+    }
     array_walk($objs, function($obj) {
       $obj->setContainer($this->container);
     });
@@ -147,7 +150,7 @@ class ModelFactory {
     $objs = $this->many();
     $output = [];
     foreach ($objs as $obj) {
-      $output []= $this->getArray($obj);
+      $output []= $obj->__toArray($obj);
     }
     return $output;
   }
@@ -158,27 +161,6 @@ class ModelFactory {
     $this->conditions = [];
     $this->orders = [];
     $this->limit = [];
-  }
-  protected function getArray($obj) {
-    $parent = $obj->asArray();
-    foreach (get_class_methods($obj) as $method) {
-      $trimmed = preg_replace('/^get/s', '', $method);
-      if ($trimmed !== $method and $trimmed !== '') {
-        $sub = strtolower($trimmed);
-        if ($sub == 'table') {
-          continue;
-        }
-        $parent[$sub] = [];
-        $arr = $obj->{$method}();
-        if (!$arr or !is_array($arr)) {
-          continue;
-        }
-        foreach ($arr as $o) {
-          $parent[$sub] []= $this->getArray($o);
-        }
-      }
-    }
-    return $parent;
   }
   protected function query() {
     $query = Model::factory($this->model);

@@ -13,40 +13,38 @@ class Ingredient extends Model {
   protected $types;
   public function types(string $sort = '') {
     if ($this->types == null) {
-      $types = $this->container->model->find(IngredientType::class)
+      $types = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'type_id', 'ingredient_id');
+      /*$types = $this->container->model->find(IngredientType::class)
         ->select('ingredient_types.*')
         ->join([
           ['ingredients_types', 'ingredients_types.type_id', 'ingredient_types.id']
         ])
         ->where([
           'ingredients_types.ingredient_id' => $this->id
-        ]);
-        if ($sort != '') {
-          $types = $types->sort([$sort]);
-        }
-        $this->types = $types->many();
+        ]);*/
+      if ($sort != '') {
+        $types = $types->sort([$sort]);
+      }
+      $this->types = $types->many();
     }
     return $this->types;
   }
   protected $has_types = [];
   public function hasType($type) {
     if (!isset($this->has_types[$type])) {
+      $where = 'id';
+      if (!ctype_digit($type)) {
+        $where = 'description';
+      }
       $t = $this->container->model->find(IngredientType::class)
         ->join([
           ['ingredients_types', 'ingredients_types.type_id', 'ingredient_types.id']
-        ]);
-      if (ctype_digit($t)) {
-        $t = $t->where(['ingredient_types.id' => $type]);
-      } else {
-        $t = $t->where(['ingredient_types.description' => $type]);
-      }
-      $t = $t->one();
+        ])
+        ->where(['ingredient_type.' . $where => $type])
+        ->one();
       $this->has_types[$type] = (!$t) ? false : true;
     }
     return $this->has_types[$type];
-  }
-  public function getTypes() {
-    return $this->types();
   }
   public function addType($type_id) {
     $type = $this->container->model->find(IngredientType::class)->one($type_id);
@@ -71,6 +69,7 @@ class Ingredient extends Model {
       $it->delete();
     }
   }
+
   protected $unit;
   public function unit($recipe) {
     if ($this->unit == null) {
@@ -88,5 +87,13 @@ class Ingredient extends Model {
       $this->unit = $unit;
     }
     return $this->unit;
+  }
+
+  public function __toArray(): array {
+    $arr = parent::__toArray();
+    $arr['types'] = array_map(function($item) {
+      return $item->__toArray();
+    }, $this->types());
+    return $arr;
   }
 }

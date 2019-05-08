@@ -10,22 +10,32 @@ use App\Definition\Model;
 class IngredientType extends Model {
   public static $_table = 'ingredient_types';
 
+  protected $ingredients;
   public function ingredients(string $sort = '') {
-    if ($sort == '') {
-      return $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->findMany();
+    if ($this->ingredients == null) {
+      $ingredients = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id');
+      if ($sort != '') {
+        $ingredients = $ingredients->sort([$sort]);
+      }
+      $this->ingredients = $ingredients->many();
     }
-    return $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->orderByAsc($sort)->findMany();
+    return $this->ingredients;
   }
+  protected $has_ingredients = [];
   public function hasIngredient($ingredient) {
-    if (ctype_digit($ingredient)) {
-      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->where('ingredients.id', $ingredient)->findOne();
-    } else {
-      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')->where('ingredients.description', $ingredient)->findOne();
+    if ($this->has_ingredients[$ingredient] == null) {
+      $where = 'id';
+      if (ctype_digit($ingredient)) {
+        $where = 'description';
+      }
+      $ingredient = $this->hasManyThrough(Ingredient::class, 'ingredients_types', 'type_id', 'ingredient_id')
+        ->where([
+          'ingredients.' . $where => $ingredient
+        ])
+        ->one();
+      $this->has_ingredients[$ingredient] = (!$ingredient) ? false : true;
     }
-    if (!$ingredient) {
-      return false;
-    }
-    return true;
+    return $this->has_ingredients[$ingredient];
   }
   public function addIngredient($ingredient_id) {
     $ingredient = $this->container->model->find(Ingredient::class)->one($ingredient_id);

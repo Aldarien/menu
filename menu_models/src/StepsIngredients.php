@@ -14,12 +14,12 @@ class StepsIngredients extends Model {
   public static $_table = 'steps_ingredients';
 
   public function step() {
-    return $this->belongsTo(Step::class, 'step_id')->findOne();
+    return $this->belongsTo(Step::class, 'step_id')->one();
   }
   public function ingredient() {
-    return $this->belongsTo(Ingredient::class, 'ingredient_id')->findOne();
+    return $this->belongsTo(Ingredient::class, 'ingredient_id')->one();
   }
   public function unit() {
-    return $this->belongsTo(Unit::class, 'unit_id')->findOne();
+    return $this->belongsTo(Unit::class, 'unit_id')->one();
   }
 }
