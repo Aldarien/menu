@@ -7,7 +7,7 @@ $app->group('/admin', function($app) {
 
   $files = new DirectoryIterator(realpath($app->getContainer()->cfg->get('locations.routes') . '/public/admin'));
   foreach ($files as $file) {
-    if ($file->isDir()) {
+    if ($file->isDir() or $file->getExtension() != 'php') {
       continue;
     }
     include_once $file->getRealPath();

@@ -31,18 +31,17 @@ class Ingredient extends Model {
   protected $has_types = [];
   public function hasType($type) {
     if (!isset($this->has_types[$type])) {
-      $type = $this->container->model->find(IngredientType::class)
-        ->select('1')
+      $t = $this->container->model->find(IngredientType::class)
         ->join([
           ['ingredients_types', 'ingredients_types.type_id', 'ingredient_types.id']
         ]);
-      if (ctype_digit($type)) {
-        $type = $type->where(['ingredient_types.id', $type]);
+      if (ctype_digit($t)) {
+        $t = $t->where(['ingredient_types.id' => $type]);
       } else {
-        $type = $type->where(['ingredient_types.description', $type]);
+        $t = $t->where(['ingredient_types.description' => $type]);
       }
-      $type = $type->one();
-      $this->has_types[$type] = (!$type) ? false : true;
+      $t = $t->one();
+      $this->has_types[$type] = (!$t) ? false : true;
     }
     return $this->has_types[$type];
   }

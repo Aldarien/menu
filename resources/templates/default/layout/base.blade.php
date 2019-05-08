@@ -12,6 +12,7 @@
   <div class="ui container">
     @include('layout.header')
     @yield('content')
+    @include('layout.footer')
   </div>
   @stack('scripts')
 </body>

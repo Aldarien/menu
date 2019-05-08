@@ -6,6 +6,7 @@ use App\Definition\Model;
 /**
  * @property int $id
  * @property string $title
+ * @property int $serves
  * @property string $image
  */
 class Recipe extends Model {

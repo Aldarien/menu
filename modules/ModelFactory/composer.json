@@ -1,6 +1,6 @@
 {
-    "name": "aldarien/menu_models",
-    "description": "Models for menu",
+    "name": "aldarien/model-factory",
+    "description": "Model factory",
     "type": "module",
     "require": {
         "j4mie/paris": "^1.5"
@@ -14,8 +14,7 @@
     ],
     "autoload": {
       "psr-4": {
-        "App\\": "app",
-        "Menu\\": "src"
+        "App\\": "app"
       }
     }
 }

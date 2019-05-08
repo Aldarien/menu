@@ -20,7 +20,7 @@ data:
           update: cascade
       - name: step_id
         type:
-          name: id
+          name: int
           unsigned: true
         references:
           table: steps

@@ -12,6 +12,12 @@ data:
         type:
           name: varchar
           length: 100
+      - name: serves
+        type:
+          name: int
+          unsigned: true
+        null: true
+        default: 8
       - name: image
         type:
           name: varchar

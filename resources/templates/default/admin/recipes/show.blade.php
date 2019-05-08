@@ -1,17 +1,18 @@
 @extends('admin.layout.base')
 
-@section('admin_content')
-  <h1>
-    <div class="ui grid">
-      <div class="two columns row">
-        <div class="column">Receta - {{$recipe->title}} <a href="{{$base_url}}/admin/recipes"><i class="small level up icon"></i></a></div>
-        <div class="right aligned column">
-          <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/edit"><i class="small edit icon"></i></a>
-          <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/remove"><i class="small remove icon"></i></a>
-        </div>
+@section('admin_title')
+  <div class="ui grid">
+    <div class="two columns row">
+      <div class="column">Receta - {{$recipe->title}} <a href="{{$base_url}}/admin/recipes"><i class="small level up icon"></i></a></div>
+      <div class="right aligned column">
+        <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/edit"><i class="small edit icon"></i></a>
+        <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/remove"><i class="small remove icon"></i></a>
       </div>
     </div>
-  </h1>
+  </div>
+@endsection
+
+@section('admin_content')
   <table class="ui table">
     <thead>
       <tr>

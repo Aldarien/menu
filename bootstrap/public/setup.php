@@ -20,10 +20,11 @@ $container['base_url'] = function($c) {
 };
 $container['view'] = function ($container) {
   return new \Slim\Views\Blade(
-    $container['settings']['renderer']['blade_template_path'],
+    $container['settings']['renderer']['blade_template_path'] . DIRECTORY_SEPARATOR . $container->cfg->get('app.template'),
     $container['settings']['renderer']['blade_cache_path'],
     null,
     [
+      'container' => $container,
       'base_url' => $container->base_url
     ]
   );

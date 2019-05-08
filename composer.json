@@ -6,7 +6,9 @@
         "slim/slim": "^3.12",
         "aldarien/definitions": "dev-develop",
         "aldarien/config": "dev-develop",
+        "aldarien/route-loader": "dev-develop",
         "aldarien/menu_models": "dev-develop",
+        "aldarien/model-factory": "dev-develop",
         "aldarien/model-migrator": "dev-develop",
         "aldarien/query": "dev-develop",
         "aldarien/loaders": "dev-develop",
@@ -40,7 +42,15 @@
       },
       {
         "type": "path",
+        "url": "./modules/RouteLoader"
+      },
+      {
+        "type": "path",
         "url": "./menu_models/"
+      },
+      {
+        "type": "path",
+        "url": "./modules/ModelFactory"
       },
       {
         "type": "path",

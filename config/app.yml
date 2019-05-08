@@ -3,3 +3,4 @@ debug: true
 locale: es_ES
 timezone: America/Santiago
 base_url: /menu
+template: default

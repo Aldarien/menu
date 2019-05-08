@@ -124,6 +124,8 @@ class CreateQuery implements QueryInterface {
     $def []= $this->parseColumnType($column->type);
     if (isset($column->null) and $column->null) {
       $def []= 'NULL';
+    } else {
+      $def []= 'NOT NULL';
     }
     if (isset($column->default)) {
       $def []= 'DEFAULT ' . $column->default;

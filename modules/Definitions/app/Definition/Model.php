@@ -11,4 +11,15 @@ class Model extends \Model {
   public static function getTable() {
     return self::_get_table_name(get_called_class());
   }
+  public function save() {
+    $pdo = \ORM::getDb();
+    $pdo->beginTransaction();
+    try {
+      parent::save();
+      $pdo->commit();
+    } catch (\Exception $e) {
+      $pdo->rollBack();
+      throw $e;
+    }
+  }
 }

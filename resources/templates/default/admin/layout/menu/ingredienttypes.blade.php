@@ -1,4 +1,4 @@
-<div class="item dropdown">
+<div class="item dropdown" data-menu="ingredienttypes">
   Tipos
   <i class="dropdown icon"></i>
   <div class="menu">

@@ -18,12 +18,15 @@ class ModelFactory {
     $this->container = $container;
   }
   public function new(string $model_name) {
-    return Model::factory($model_name)->create();
+    $model = Model::factory($model_name)->create();
+    $model->setContainer($this->container);
+    return $model;
   }
   public function create(string $model_name, array $data) {
     $model = $this->find($model_name)->where($data)->one();
     if (!$model) {
-      return Model::factory($model_name)->create($data);
+      $model = Model::factory($model_name)->create($data);
+      $model->setContainer($this->container);
     }
     return $model;
   }

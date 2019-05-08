@@ -6,7 +6,7 @@
     <thead>
       <tr>
         <th>Descripci&oacute;n</th>
-        <th>Ingredientes</th>
+        <th><a href="{{$base_url}}/admin/ingredients">Ingredientes</a></th>
         <th class="right aligned">
           <a href="{{$base_url}}/admin/ingredienttypes/add"><i class="plus icon"></i></a>
         </tr>

@@ -1,7 +1,10 @@
 @extends('admin.layout.base')
 
+@section('admin_title')
+  Agregar - Receta
+@endsection
+
 @section('admin_content')
-  <h1>Agregar - Receta</h1>
   <form class="ui form" method="post" action="{{$base_url}}/admin/recipes/add">
     <div class="field">
       <label>T&iacute;tulo</label>
@@ -16,6 +19,7 @@
         <div class="menu">
         </div>
       </div>
+    </div>
     <div class="field">
       <label>[Imagen]</label>
       <input type="text" name="image" />

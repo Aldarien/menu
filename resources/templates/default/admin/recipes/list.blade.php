@@ -1,7 +1,10 @@
 @extends('admin.layout.base')
 
+@section('admin_title')
+  Recetas
+@endsection
+
 @section('admin_content')
-  <h1>Recetas</h1>
   <table class="ui table">
     <thead>
       <tr>
