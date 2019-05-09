@@ -1,7 +1,7 @@
 <?php
-use App\Controller\Frontend;
+use App\Controller\Planner\Week;
 
-$app->get('/', Frontend::class);
+$app->get('/', Week::class);
 
 $files = new DirectoryIterator(realpath($app->getContainer()->cfg->get('locations.routes') . '/public'));
 foreach ($files as $file) {

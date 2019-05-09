@@ -19,11 +19,6 @@
     <thead>
       <tr>
         <th>Ingredientes</th>
-        <th class="right aligned">
-          <a href="{{$base_url}}/admin/ingredienttype/{{$type->id}}/ingredients/add">
-            <i class="plus icon"></i>
-          </a>
-        </th>
       </tr>
     </thead>
     @if ($type->ingredients())
@@ -33,11 +28,6 @@
             <td>
               <a href="{{$base_url}}/admin/ingredient/{{$ingredient->id}}">
                 {{ucwords($ingredient->description)}}
-              </a>
-            </td>
-            <td class="right aligned">
-              <a href="{{$base_url}}/admin/ingredienttype/{{$type->id}}/ingredient/{{$ingredient->id}}/remove">
-                <i class="remove icon"></i>
               </a>
             </td>
           </tr>

@@ -1,0 +1,23 @@
+action: create
+data:
+  table: days
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        primary: true
+        auto_increment: true
+      - name: date
+        type:
+          name: date
+      - name: recipe_id
+        type:
+          name: int
+          unsigned: true
+        references:
+          table: recipes
+          keys: id
+          delete: cascade
+          update: cascade

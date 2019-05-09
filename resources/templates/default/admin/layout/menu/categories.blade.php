@@ -1,4 +1,4 @@
-<div class="item dropdown" data-menu="categories">
+<div class="ui item dropdown" data-menu="categories">
   Categor&iacute;as
   <i class="dropdown icon"></i>
   <div class="menu">

@@ -11,6 +11,10 @@ class Methods extends Controller {
     $methods = $this->container->model->find(Method::class)->sort('description')->many();
     return $this->container->view->render($response, 'admin.methods.list', compact('methods'));
   }
+  public function show(RequestInterface $request, ResponseInterface $response, $arguments) {
+    $method = $this->container->model->find(Method::class)->one($arguments['method']);
+    return $this->container->view->render($response, 'admin.methods.show', compact('method'));
+  }
   public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
     return $this->container->view->render($response, 'admin.methods.add');
   }

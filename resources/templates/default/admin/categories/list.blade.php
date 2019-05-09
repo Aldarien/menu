@@ -7,14 +7,14 @@
       <tr>
         <th>Descripci&oacute;n</th>
         <th class="right aligned">
-          <a href="{{$base_url}}/admin/recipecategories/add"><i class="plus icon"></i></a>
+          <a href="{{$base_url}}/admin/categories/add"><i class="plus icon"></i></a>
         </tr>
       </tr>
     </thead>
     <tbody>
       @foreach ($categories as $category)
         <tr>
-          <td><a href="{{$base_url}}/admin/recipecategory/{{$category->id}}">{{ucwords($category->description)}}</a></td>
+          <td><a href="{{$base_url}}/admin/categories/{{$category->id}}">{{ucwords($category->description)}}</a></td>
         </tr>
       @endforeach
     </tbody>

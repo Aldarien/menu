@@ -1,5 +1,6 @@
 <div class="ui menu">
   <a class="item" href="{{$base_url}}">Inicio</a>
+  <a class="item" href="{{$base_url}}/book">Libro de Recetas</a>
 </div>
 
 @push('scripts')

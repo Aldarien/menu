@@ -5,7 +5,7 @@
 @endsection
 
 @section('admin_content')
-  <form class="ui form" method="post" action="{{$base_url}}/admin/recipes/add">
+  <form class="ui form" method="post" action="{{$base_url}}/book/recipes/add">
     <div class="field">
       <label>T&iacute;tulo</label>
       <input type="text" name="title" />

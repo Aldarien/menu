@@ -1,8 +1,8 @@
 @extends('admin.layout.base')
 
 @section('admin_content')
-  <h1>Agregar Paso - <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}">{{$recipe->title}}</a></h1>
-  <form class="ui form" method="post" action="{{$base_url}}/admin/recipe/{{$recipe->id}}/steps/add">
+  <h1>Agregar Paso - <a href="{{$base_url}}/book/recipe/{{$recipe->id}}">{{$recipe->title}}</a></h1>
+  <form class="ui form" method="post" action="{{$base_url}}/book/recipe/{{$recipe->id}}/steps/add">
     <div class="field">
       <label>M&eacute;todo</label>
       <div class="ui selection dropdown" id="method">
@@ -37,30 +37,6 @@
   var ingredients = []
   var units = []
   function addIngredient() {
-    /*<div class="fields">
-      <div class="field">
-        <label>Ingrediente</label>
-        <div class="ui selection dropdown" id="ingredient">
-          <input type="hidden" name="ingredient" />
-          <i class="dropdown icon"></i>
-          <div class="default text">Ingrediente</div>
-          <div class="menu"></div>
-        </div>
-      </div>
-      <div class="field">
-        <label>Cantidad</label>
-        <input type="text" name="amount" />
-      </div>
-      <div class="field">
-        <label>Unidad</label>
-        <div class="ui selection dropdown" id="unit">
-          <input type="hidden" name="unit" />
-          <i class="dropdown icon"></i>
-          <div class="default text">Unidad</div>
-          <div class="menu"></div>
-        </div>
-      </div>
-    </div>*/
     var i = active_ingredients[active_ingredients.length - 1] + 1
     if (active_ingredients.length == 0) {
       i = 1

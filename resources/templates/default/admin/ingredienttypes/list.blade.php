@@ -6,7 +6,7 @@
     <thead>
       <tr>
         <th>Descripci&oacute;n</th>
-        <th><a href="{{$base_url}}/admin/ingredients">Ingredientes</a></th>
+        <th>Ingredientes</th>
         <th class="right aligned">
           <a href="{{$base_url}}/admin/ingredienttypes/add"><i class="plus icon"></i></a>
         </tr>
@@ -22,9 +22,7 @@
                 <div class="row">
                   @foreach ($type->ingredients('description') as $ingredient)
                     <div class="column">
-                      <a href="{{$base_url}}/admin/ingredient/{{$ingredient->id}}">
-                        {{ucwords($ingredient->description)}}
-                      </a>
+                      {{ucwords($ingredient->description)}}
                     </div>
                   @endforeach
                 </div>

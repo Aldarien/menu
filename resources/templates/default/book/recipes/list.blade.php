@@ -1,33 +1,31 @@
-@extends('admin.layout.base')
+@extends('book.layout.base')
 
-@section('admin_title')
+@section('book_title')
   Recetas
 @endsection
 
-@section('admin_content')
+@section('book_content')
   <table class="ui table">
     <thead>
       <tr>
         <th>T&iacute;tulo</th>
         <th>Categor&iacute;a</th>
         <th class="right aligned">
-          <a href="{{$base_url}}/admin/recipes/add"><i class="plus icon"></i></a>
+          <a href="{{$base_url}}/book/recipes/add"><i class="plus icon"></i></a>
         </tr>
       </tr>
     </thead>
     <tbody>
       @foreach ($recipes as $recipe)
         <tr>
-          <td><a href="{{$base_url}}/admin/recipe/{{$recipe->id}}">{{$recipe->title}}</a></td>
+          <td><a href="{{$base_url}}/book/recipe/{{$recipe->id}}">{{$recipe->title}}</a></td>
           <td>
             @if ($recipe->categories())
               <div class="ui grid">
                 <div class="row">
                   @foreach ($recipe->categories('description') as $category)
                     <div class="column">
-                      <a href="{{$base_url}}/admin/recipecategory/{{$category->id}}">
-                        {{ucwords($category->description)}}
-                      </a>
+                      {{ucwords($category->description)}}
                     </div>
                   @endforeach
                 </div>

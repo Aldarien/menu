@@ -1,24 +1,24 @@
-@extends('admin.layout.base')
+@extends('book.layout.base')
 
-@section('admin_title')
+@section('book_title')
   <div class="ui grid">
     <div class="two columns row">
-      <div class="column">Receta - {{$recipe->title}} <a href="{{$base_url}}/admin/recipes"><i class="small level up icon"></i></a></div>
+      <div class="column">Receta - {{$recipe->title}} <a href="{{$base_url}}/book/recipes"><i class="small level up icon"></i></a></div>
       <div class="right aligned column">
-        <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/edit"><i class="small edit icon"></i></a>
-        <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/remove"><i class="small remove icon"></i></a>
+        <a href="{{$base_url}}/book/recipe/{{$recipe->id}}/edit"><i class="small edit icon"></i></a>
+        <a href="{{$base_url}}/book/recipe/{{$recipe->id}}/remove"><i class="small remove icon"></i></a>
       </div>
     </div>
   </div>
 @endsection
 
-@section('admin_content')
+@section('book_content')
   <table class="ui table">
     <thead>
       <tr>
         <th>Categor&iacute;as</th>
         <th class="right aligned">
-          <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/categories/add">
+          <a href="{{$base_url}}/book/recipe/{{$recipe->id}}/categories/add">
             <i class="plus icon"></i>
           </a>
         </th>
@@ -29,12 +29,10 @@
         @foreach ($recipe->categories('description') as $category)
           <tr>
             <td>
-              <a href="{{$base_url}}/admin/recipecategory/{{$category->id}}">
-                {{ucwords($category->description)}}
-              </a>
+              {{ucwords($category->description)}}
             </td>
             <td class="right aligned">
-              <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/category/{{$category->id}}/remove">
+              <a href="{{$base_url}}/book/recipe/{{$recipe->id}}/category/{{$category->id}}/remove">
                 <i class="remove icon"></i>
               </a>
             </td>
@@ -43,18 +41,18 @@
       </tbody>
     @endif
   </table>
-  <table class="ui table">
+  <table class="ui collapsing table">
     <thead>
       <tr>
-        <th colspan="3">Ingredientes</th>
+        <th>Ingredientes</th>
       </tr>
     </thead>
     @if ($recipe->ingredients())
       <tbody>
         @foreach ($recipe->ingredients() as $ingredient)
           <tr>
-            <td>{{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}}</td>
             <td>
+              <i class="mini circle icon"></i> {{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}}. de
               {{ucwords($ingredient->description)}}
             </td>
           </tr>
@@ -68,7 +66,7 @@
         <th>Pasos</th>
         <th></th>
         <th class="right aligned">
-          <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/steps/add">
+          <a href="{{$base_url}}/book/recipe/{{$recipe->id}}/steps/add">
             <i class="plus icon"></i>
           </a>
         </th>
@@ -89,7 +87,7 @@
               en {{$step->method()->vessel()->description}}
             </td>
             <td class="right aligned">
-              <a href="{{$base_url}}/admin/recipe/{{$recipe->id}}/step/{{$step->id}}/remove">
+              <a href="{{$base_url}}/book/recipe/{{$recipe->id}}/step/{{$step->id}}/remove">
                 <i class="remove icon"></i>
               </a>
             </td>

@@ -11,6 +11,10 @@ class Vessels extends Controller {
     $vessels = $this->container->model->find(Vessel::class)->sort('description')->many();
     return $this->container->view->render($response, 'admin.vessels.list', compact('vessels'));
   }
+  public function show(RequestInterface $request, ResponseInterface $response, $arguments) {
+    $vessel = $this->container->model->find(Vessel::class)->one($arguments['vessel']);
+    return $this->container->view->render($response, 'admin.vessels.show', compact('vessel'));
+  }
   public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
     return $this->container->view->render($response, 'admin.vessels.add');
   }
