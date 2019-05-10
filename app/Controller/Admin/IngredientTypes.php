@@ -20,9 +20,31 @@ class IngredientTypes extends Controller {
   }
   public function do_add(RequestInterface $request, ResponseInterface $response, $arguments) {
     $post = $request->getParsedBody();
-    $data = ['description' => strtolower($post['description'])];
+    $data = ['description' => $post['description']];
     $it = $this->container->model->create(IngredientType::class, $data);
     $it->save();
+    return $response->withRedirect($this->container->base_url . '/admin/ingredienttypes');
+  }
+  public function edit(RequestInterface $request, ResponseInterface $response, $arguments) {
+    $type = $this->container->model->find(IngredientType::class)->one($arguments['type']);
+    return $this->container->view->render($response, 'admin.ingredienttypes.edit', compact('type'));
+  }
+  public function do_edit(RequestInterface $request, ResponseInterface $response, $arguments) {
+    $type = $this->container->model->find(IngredientType::class)->one($arguments['type']);
+    $post = $request->getParsedBody();
+    $data = [
+      'description' => $post['description']
+    ];
+    $changed = false;
+    foreach ($data as $field => $value) {
+      if ($type->$field != $value) {
+        $type->$field = $value;
+        $changed = true;
+      }
+    }
+    if ($changed) {
+      $type->save();
+    }
     return $response->withRedirect($this->container->base_url . '/admin/ingredienttypes');
   }
   public function remove(RequestInterface $request, ResponseInterface $response, $arguments) {

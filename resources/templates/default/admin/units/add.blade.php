@@ -1,11 +1,12 @@
 @extends('admin.layout.add')
 
-<?php $list = 'categories' ?>
+<?php $list = 'units' ?>
 
 @section('title')
-  Categor&iacute;a de Recetas
+  Unidad
 @endsection
 
 @section('fields')
   @include('layout.form.input', ['label' => 'Descripción', 'name' => 'description'])
+  @include('layout.form.input', ['label' => 'Abreviación', 'name' => 'abreviation'])
 @endsection

@@ -14,5 +14,4 @@ $app->group('/vessel/{vessel}', function($app) {
     $app->post('[/]', Vessels::class . ':do_edit');
   });
   $app->get('/remove[/]', Vessels::class . ':remove');
-  $app->get('[/]', Vessels::class . ':show');
 });

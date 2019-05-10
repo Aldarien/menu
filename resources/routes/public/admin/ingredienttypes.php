@@ -9,7 +9,7 @@ $app->group('/ingredienttypes', function($app) {
     $app->post('', IngredientTypes::class . ':do_add');
   });
 });
-$app->group('/ingredienttype/{ingredienttype}', function($app) {
+$app->group('/ingredienttype/{type}', function($app) {
   $app->group('/edit', function($app) {
     $app->get('', IngredientTypes::class . ':edit');
     $app->post('', IngredientTypes::class . ':do_edit');

@@ -1,5 +1,5 @@
 <div class="ui item dropdown" data-menu="categories">
-  Envases
+  Elementos
   <i class="dropdown icon"></i>
   <div class="menu">
     <a class="item" href="{{$base_url}}/admin/vessels">Listado</a>
