@@ -2,7 +2,7 @@
 use App\Controller\Admin\Units;
 
 $app->group('/units', function($app) {
-  $app->get('[/]', Units::class . ':list');
+  $app->get('[/]', Units::class);
   $app->group('/add', function($app) {
     $app->get('[/]', Units::class . ':add');
     $app->post('[/]', Units::class . ':do_add');

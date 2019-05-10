@@ -2,7 +2,7 @@
 use App\Controller\Admin\Methods;
 
 $app->group('/methods', function($app) {
-  $app->get('[/]', Methods::class . ':list');
+  $app->get('[/]', Methods::class);
   $app->group('/add', function($app) {
     $app->get('[/]', Methods::class . ':add');
     $app->post('[/]', Methods::class . ':do_add');
@@ -14,5 +14,4 @@ $app->group('/method/{method}', function($app) {
     $app->post('[/]', Methods::class . ':do_edit');
   });
   $app->get('/remove[/]', Vessels::class . ':remove');
-  $app->get('[/]', Methods::class . ':show');
 });

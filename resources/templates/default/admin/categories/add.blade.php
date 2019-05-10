@@ -3,7 +3,7 @@
 <?php $list = 'categories' ?>
 
 @section('title')
-  Categor&iacute;a de Recetas
+  Categor&iacute;a de Receta
 @endsection
 
 @section('fields')

@@ -6,8 +6,15 @@ use Psr\Http\Message\ResponseInterface;
 use App\Definition\Controller;
 
 class Base extends Controller {
+  protected $singular;
+  protected $plural;
+  protected $model;
+  protected $sort;
+  protected $columns;
+
   public function __invoke(RequestInterface $request, ResponseInterface $response, $arguments) {
-    return $this->container->view->render($response, 'admin.' . $this->plural . '.list', [$this->plural => $this->data[$this->plural]]);
+    $objs = $this->container->model->find($this->model)->sort($this->sort)->many();
+    return $this->container->view->render($response, 'admin.' . $this->plural . '.list', [$this->plural => $objs]);
   }
   public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
     return $this->container->view->render($response, 'admin.' . $this->plural . '.add');

@@ -2,7 +2,7 @@
 use App\Controller\Admin\Vessels;
 
 $app->group('/vessels', function($app) {
-  $app->get('[/]', Vessels::class . ':list');
+  $app->get('[/]', Vessels::class);
   $app->group('/add', function($app) {
     $app->get('[/]', Vessels::class . ':add');
     $app->post('[/]', Vessels::class . ':do_add');

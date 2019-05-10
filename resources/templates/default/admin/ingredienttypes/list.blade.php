@@ -8,5 +8,5 @@
   $columns = ['description' => 'Descripción'];
   $list = 'ingredienttypes';
   $link = 'ingredienttype';
-  $items = $types
+  $items = $ingredienttypes
 ?>

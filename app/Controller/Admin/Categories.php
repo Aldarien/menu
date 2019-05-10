@@ -1,26 +1,16 @@
 <?php
 namespace App\Controller\Admin;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use App\Definition\Controller;
+use Psr\Container\ContainerInterface;
 use Menu\Category;
 
-class Categories extends Controller {
-  public function list(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $categories = $this->container->model->find(Category::class)->sort('description')->many();
-    return $this->container->view->render($response, 'admin.categories.list', compact('categories'));
-  }
-  public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
-    return $this->container->view->render($response, 'admin.categories.add');
-  }
-  public function do_add(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $post = $request->getParsedBody();
-    $data = [
-      'description' => $post['description']
-    ];
-    $category = $this->container->model->create(Category::class, $data);
-    $category->save();
-    return $response->withRedirect($this->container->base_url . '/admin/categories');
+class Categories extends Base {
+  public function __construct(ContainerInterface $container) {
+    parent::__construct($container);
+    $this->singular = 'category';
+    $this->plural = 'categories';
+    $this->model = Category::class;
+    $this->sort = 'description';
+    $this->columns = ['description'];
   }
 }

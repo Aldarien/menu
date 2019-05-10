@@ -22,7 +22,15 @@
           <tr>
             @foreach ($columns as $col => $name)
               <td>
-                {{$item->$col}}
+                  <?php
+                  if (strpos($col, '(') !== false):
+                  $str = "\$val = \$item->$col;";
+                  eval($str);
+                  ?>
+                  {{$val}}
+                @else
+                  {{$item->$col}}
+                @endif
               </td>
             @endforeach
             <td class="right aligned">

@@ -4,4 +4,5 @@
   @include('admin.layout.menu.categories')
   @include('admin.layout.menu.units')
   @include('admin.layout.menu.vessels')
+  @include('admin.layout.menu.methods')
 </div>

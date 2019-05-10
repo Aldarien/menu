@@ -3,7 +3,7 @@
 <?php $list = 'units' ?>
 
 @section('title')
-  Elemento - {{$unit->description}}
+  Unidad - {{$unit->description}}
 @endsection
 
 <?php $link = 'unit/' . $unit->id ?>

@@ -1,64 +1,16 @@
 <?php
 namespace App\Controller\Admin;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use App\Definition\Controller;
+use Psr\Container\ContainerInterface;
 use Menu\IngredientType;
 
-class IngredientTypes extends Controller {
-  public function list(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $types = $this->container->model->find(IngredientType::class)->sort('description')->many();
-    return $this->container->view->render($response, 'admin.ingredienttypes.list', compact('types'));
-  }
-  public function show(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $type = $this->container->model->find(IngredientType::class)->one($arguments['ingredienttype']);
-    return $this->container->view->render($response, 'admin.ingredienttypes.show', compact('type'));
-  }
-  public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
-    return $this->container->view->render($response, 'admin.ingredienttypes.add');
-  }
-  public function do_add(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $post = $request->getParsedBody();
-    $data = ['description' => $post['description']];
-    $it = $this->container->model->create(IngredientType::class, $data);
-    $it->save();
-    return $response->withRedirect($this->container->base_url . '/admin/ingredienttypes');
-  }
-  public function edit(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $type = $this->container->model->find(IngredientType::class)->one($arguments['type']);
-    return $this->container->view->render($response, 'admin.ingredienttypes.edit', compact('type'));
-  }
-  public function do_edit(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $type = $this->container->model->find(IngredientType::class)->one($arguments['type']);
-    $post = $request->getParsedBody();
-    $data = [
-      'description' => $post['description']
-    ];
-    $changed = false;
-    foreach ($data as $field => $value) {
-      if ($type->$field != $value) {
-        $type->$field = $value;
-        $changed = true;
-      }
-    }
-    if ($changed) {
-      $type->save();
-    }
-    return $response->withRedirect($this->container->base_url . '/admin/ingredienttypes');
-  }
-  public function remove(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $type = $this->container->model->find(IngredientType::class)->one($arguments['ingredienttype']);
-    if ($type) {
-      $type->delete();
-      $this->container->model->reset(IngredientType::class);
-    }
-    return $response->withRedirect($this->container->base_url . '/admin/ingredienttypes');
-  }
-  public function remove_ingredient(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $type = $this->container->model->find(IngredientType::class)->one($arguments['ingredienttype']);
-    $type->removeIngredient($arguments['ingredient']);
-    $this->container->model->reset('ingredients_types');
-    return $response->withRedirect($this->container->base_url . '/admin/ingredienttype/' . $type->id);
+class IngredientTypes extends Base {
+  public function __construct(ContainerInterface $container) {
+    parent::__construct($container);
+    $this->singular = 'ingredienttype';
+    $this->plural = 'ingredienttypes';
+    $this->model = IngredientType::class;
+    $this->sort = 'description';
+    $this->columns = ['description', 'abreviation'];
   }
 }
