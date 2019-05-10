@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "0e9982385681772b90194798f97e6fa1",
@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Config",
-                "reference": "e5f092439d36da8658929fc05a531e1f7e35f70b",
+                "reference": "57adcddc6178fcd27d16e41023bb27cc278f2b87",
                 "shasum": null
             },
             "require": {
@@ -42,7 +42,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Definitions",
-                "reference": "0c93621292bd564e735f52b03f1497b9e6948837",
+                "reference": "fcbcb2cdc1b76a7090699714b80575b509adc0c1",
                 "shasum": null
             },
             "type": "module",
@@ -68,7 +68,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Loaders",
-                "reference": "b94b038a301c9fd66df472215a4b8643feadb3ed",
+                "reference": "bbf5d127b8b7bff98d2464b4709a16fcf424bd8c",
                 "shasum": null
             },
             "require": {
@@ -129,7 +129,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/ModelFactory",
-                "reference": "ea05b37a7c153737d4e7bf64efb0704444438ae5",
+                "reference": "cb38dd2d671f1e5363e42af3487daceeae405f25",
                 "shasum": null
             },
             "require": {
@@ -158,7 +158,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/ModelMigrator",
-                "reference": "15dfc937c60009d25be6cf49ccc243360ee07f9c",
+                "reference": "68a2468eeb282539c139f07815edecdb84dbace9",
                 "shasum": null
             },
             "require": {
@@ -189,7 +189,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/Query",
-                "reference": "84a74b93c93e0a181f1dedcf8c6995b88b63a1ca",
+                "reference": "6e2b865d1e5004255a00c468fd826bc65c32f4ba",
                 "shasum": null
             },
             "type": "module",
@@ -216,7 +216,7 @@
             "dist": {
                 "type": "path",
                 "url": "./modules/RouteLoader",
-                "reference": "b1dd448287a493c198542878d84b75deed0ba14e",
+                "reference": "424c790a7344957ba1671ef38c6f1629aee94230",
                 "shasum": null
             },
             "type": "module",
@@ -1319,16 +1319,16 @@
         },
         {
             "name": "symfony/contracts",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/d3636025e8253c6144358ec0a62773cae588395b",
+                "reference": "d3636025e8253c6144358ec0a62773cae588395b",
                 "shasum": ""
             },
             "require": {
@@ -1336,19 +1336,22 @@
             },
             "require-dev": {
                 "psr/cache": "^1.0",
-                "psr/container": "^1.0"
+                "psr/container": "^1.0",
+                "symfony/polyfill-intl-idn": "^1.10"
             },
             "suggest": {
                 "psr/cache": "When using the Cache contracts",
                 "psr/container": "When using the Service contracts",
                 "symfony/cache-contracts-implementation": "",
+                "symfony/event-dispatcher-implementation": "",
+                "symfony/http-client-contracts-implementation": "",
                 "symfony/service-contracts-implementation": "",
                 "symfony/translation-contracts-implementation": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -1383,7 +1386,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-12-05T08:06:11+00:00"
+            "time": "2019-04-27T14:29:50+00:00"
         },
         {
             "name": "symfony/debug",
