@@ -30,14 +30,15 @@ class Config {
   }
   public function dbload($container) {
     $configs = $container->model->find(CModel::class)->many();
-    if (!$config) {
+    if (!$configs) {
       return $this;
     }
-    $this->data['configuration'] = [];
+    $configuration = [];
     foreach ($configs as $config) {
-      $name = str_replace(' ', '', strtolower($config->description));
-      $this->data['configuration'][$name] = $config->value;
+      $name = $config->denomination;
+      $configuration[$name] = $config->value;
     }
+    $this->data->configuration = (object) $configuration;
   }
   public function get($name, $current = null, $full = '') {
     if ($current == null) {

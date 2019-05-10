@@ -4,7 +4,7 @@ use App\Controller\Book\RecipesCategories;
 use App\Controller\Book\RecipesSteps;
 
 $app->group('/recipes', function($app) {
-  $app->get('[/]', Recipes::class . ':list');
+  $app->get('[/]', Recipes::class);
   $app->group('/add', function($app) {
     $app->get('[/]', Recipes::class . ':add');
     $app->post('[/]', Recipes::class . ':do_add');
@@ -30,6 +30,9 @@ $app->group('/recipe/{recipe}', function($app) {
       $app->get('[/]', RecipesSteps::class . ':add');
       $app->post('[/]', RecipesSteps::class . ':do_add');
     });
+  });
+  $app->group('/step/{step}', function($app) {
+    $app->get('/remove[/]', RecipesSteps::class . ':remove');
   });
   $app->get('[/]', Recipes::class . ':show');
 });

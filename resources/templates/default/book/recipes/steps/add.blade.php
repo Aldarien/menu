@@ -1,7 +1,10 @@
-@extends('admin.layout.base')
+@extends('book.layout.base')
 
-@section('admin_content')
-  <h1>Agregar Paso - <a href="{{$base_url}}/book/recipe/{{$recipe->id}}">{{$recipe->title}}</a></h1>
+@section('book_title')
+  Agregar Paso - <a href="{{$base_url}}/book/recipe/{{$recipe->id}}">{{$recipe->title}}</a>
+@endsection
+
+@section('book_content')
   <form class="ui form" method="post" action="{{$base_url}}/book/recipe/{{$recipe->id}}/steps/add">
     <div class="field">
       <label>M&eacute;todo</label>

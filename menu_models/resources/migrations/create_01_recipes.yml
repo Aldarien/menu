@@ -7,6 +7,7 @@ data:
         type:
           name: int
           unsigned: true
+        primary: true
         auto_increment: true
       - name: title
         type:
@@ -22,4 +23,7 @@ data:
         type:
           name: varchar
           length: 255
-    primary: id
+      - name: feeds
+        type:
+          name: int
+          unsigned: true

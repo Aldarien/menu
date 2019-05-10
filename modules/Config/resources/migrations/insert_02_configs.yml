@@ -2,7 +2,8 @@ action: insert
 data:
   table: configs
   columns:
+    - denomination
     - description
     - value
   values:
-    - ['Alimentar a', '3']
+    - ['alimenta', 'Alimentar a', '3']

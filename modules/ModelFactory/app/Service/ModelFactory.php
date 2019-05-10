@@ -12,6 +12,7 @@ class ModelFactory {
   protected $joins;
   protected $conditions;
   protected $orders;
+  protected $grouping;
   protected $limit;
 
   public function __construct(ContainerInterface $container) {
@@ -43,7 +44,7 @@ class ModelFactory {
   }
   /**
    * Set which columns are selected in query
-   * @param  array  $data [field, ...]
+   * @param  mixed  $data field | [field, ...]
    * @return [Factory]       [self]
    */
   public function select($data) {
@@ -85,7 +86,7 @@ class ModelFactory {
   }
   /**
    * Add order by parameters to query
-   * @param  array  $order [[column | column => order], ...]
+   * @param  mixed  $order column | [[column | column => order], ...]
    * @return [Factory]        [self]
    */
   public function sort($data) {
@@ -97,6 +98,22 @@ class ModelFactory {
       return $this;
     }
     $this->orders = array_merge($this->orders, $data);
+    return $this;
+  }
+  /**
+   * Group by parameters for query
+   * @param  mixed $data column | [column, ...]
+   * @return ModelFactory       [self]
+   */
+  public function group($data) {
+    if (!is_array($data)) {
+      $data = [$data];
+    }
+    if ($this->grouping == [] or $this->grouping == null) {
+      $this->grouping = $data;
+      return $this;
+    }
+    $this->grouping = array_merge($this->grouping, $data);
     return $this;
   }
   /**
@@ -160,6 +177,7 @@ class ModelFactory {
     $this->joins = [];
     $this->conditions = [];
     $this->orders = [];
+    $this->grouping = [];
     $this->limit = [];
   }
   protected function query() {
@@ -175,7 +193,11 @@ class ModelFactory {
       return $orm;
     }
     foreach ($this->columns as $column) {
-      $orm = $orm->select($column);
+      $m = '';
+      if (strpos($column, '(') !== false) {
+        $m = 'Expr';
+      }
+      $orm = $orm->{'select' . $m}($column);
     }
     return $orm;
   }
@@ -258,6 +280,19 @@ class ModelFactory {
           $orm = $orm->orderByExpr($column);
           break;
       }
+    }
+    return $orm;
+  }
+  protected function parseGroups($orm) {
+    if ($this->grouping == [] or $this->grouping == null) {
+      return $orm;
+    }
+    foreach ($this->grouping as $group) {
+      $m = '';
+      if (strpos($group, '(') !== false) {
+        $m = 'Expr';
+      }
+      $orm = $orm->{'groupBy' . $m}($group);
     }
     return $orm;
   }

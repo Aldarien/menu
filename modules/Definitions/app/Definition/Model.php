@@ -57,6 +57,7 @@ class Model extends \Model implements \JsonSerializable {
       $model_through_id = $model . '_id';
     }
     $objs = $this->container->model->find($model_class)
+      ->select($model . '.*')
       ->join([
         [$table_through, $table_through . '.' . $model_through_id, $model . '.id']
       ])

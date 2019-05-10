@@ -28,4 +28,9 @@ class RecipesSteps extends Controller {
     }
     return $response->withRedirect($this->container->base_url . '/book/recipe/' . $recipe->id);
   }
+  public function remove(RequestInterface $request, ResponseInterface $response, $arguments) {
+    $recipe = $this->container->model->find(Recipe::class)->one($arguments['recipe']);
+    $recipe->removeStep($arguments['step']);
+    return $response->withRedirect($this->container->base_url . '/book/recipe/' . $recipe->id);
+  }
 }

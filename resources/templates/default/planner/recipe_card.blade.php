@@ -20,7 +20,7 @@
         <div class="description">
           <div class="ui bulleted list">
             @foreach ($recipe->ingredients() as $ingredient)
-              <div class="item">{{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}}. de {{$ingredient->description}}</div>
+              <div class="item">{{$ingredient->amount($recipe)}} {{$ingredient->unit($recipe)->abreviation}}. de {{$ingredient->description}}</div>
             @endforeach
           </div>
         </div>

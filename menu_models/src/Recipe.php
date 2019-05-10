@@ -6,12 +6,15 @@ use App\Definition\Model;
 /**
  * @property int $id
  * @property string $title
- * @property int $serves
+ * @property int $feeds
  * @property string $image
  */
 class Recipe extends Model {
   public static $_table = 'recipes';
 
+  public function feeds() {
+    return $this->feeds * $this->container->cfg->get('configuration.alimenta');
+  }
   protected $categories;
   public function categories(string $sort = '') {
     if ($this->categories == null) {
@@ -36,7 +39,7 @@ class Recipe extends Model {
     }
     return $this->has_category[$category];
   }
-  public function addCategory($category_id) {
+  public function addCategory(int $category_id) {
     $category = $this->container->model->find(Category::class)->one($category_id);
     $rc = \ORM::for_table('recipes_categories')
       ->where('recipe_id', $this->id)
@@ -48,7 +51,7 @@ class Recipe extends Model {
       $st->execute([$this->id, $category->id]);
     }
   }
-  public function removeCategory($category_id) {
+  public function removeCategory(int $category_id) {
     $category = $this->container->model->find(Category::class)->one($type_id);
     $it = \ORM::for_table('recipes_categories')
       ->where('recipe_id', $this->id)
@@ -79,17 +82,30 @@ class Recipe extends Model {
     $this->steps []= $step;
     return $step;
   }
+  public function removeStep(int $step_id) {
+    $rs = $this->container->model->find(RecipesSteps::class)
+      ->where([
+        'recipe_id' => $this->id,
+        'step_id' => $step_id
+      ])
+      ->one();
+    $rs->delete();
+  }
   protected $ingredients;
   public function ingredients() {
     if ($this->ingredients == null) {
       $ingredients = $this->container->model->find(Ingredient::class)
-        ->select(['ingredients.*', 'steps_ingredients.amount'])
+        ->select(['ingredients.*', 'SUM(steps_ingredients.amount) as amount'])
         ->join([
           ['steps_ingredients', 'steps_ingredients.ingredient_id', 'ingredients.id'],
           ['recipes_steps', 'steps_ingredients.step_id', 'recipes_steps.step_id']
         ])
         ->where(['recipes_steps.recipe_id' => $this->id])
+        ->group('ingredients.id')
         ->many();
+      if (count($ingredients) == 1 and $ingredients[0]->id == null) {
+        $ingredients = false;
+      }
       $this->ingredients = $ingredients;
     }
     return $this->ingredients;

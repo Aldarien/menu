@@ -41,6 +41,9 @@
       </tbody>
     @endif
   </table>
+  <div class="ui message">
+    Alimenta a {{$recipe->feeds()}} personas
+  </div>
   <table class="ui collapsing table">
     <thead>
       <tr>
@@ -52,7 +55,7 @@
         @foreach ($recipe->ingredients() as $ingredient)
           <tr>
             <td>
-              <i class="mini circle icon"></i> {{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}}. de
+              <i class="mini circle icon"></i> {{$ingredient->amount($recipe)}} {{$ingredient->unit($recipe)->abreviation}}. de
               {{ucwords($ingredient->description)}}
             </td>
           </tr>
@@ -81,7 +84,7 @@
               {{$step->method()->description}}
               @if ($step->ingredients())
                 @foreach ($step->ingredients() as $ingredient)
-                  {{$ingredient->amount}} {{$ingredient->unit($recipe)->abreviation}} de {{$ingredient->description}}
+                  {{$ingredient->amount($recipe)}} {{$ingredient->unit($recipe)->abreviation}} de {{$ingredient->description}}
                 @endforeach
               @endif
               en {{$step->method()->vessel()->description}}

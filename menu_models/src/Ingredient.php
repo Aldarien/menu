@@ -13,19 +13,12 @@ class Ingredient extends Model {
   protected $types;
   public function types(string $sort = '') {
     if ($this->types == null) {
-      $types = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'type_id', 'ingredient_id');
-      /*$types = $this->container->model->find(IngredientType::class)
-        ->select('ingredient_types.*')
-        ->join([
-          ['ingredients_types', 'ingredients_types.type_id', 'ingredient_types.id']
-        ])
-        ->where([
-          'ingredients_types.ingredient_id' => $this->id
-        ]);*/
+      $types = $this->hasManyThrough(IngredientType::class, 'ingredients_types', 'ingredient_id', 'type_id');
       if ($sort != '') {
         $types = $types->sort([$sort]);
       }
-      $this->types = $types->many();
+      $types = $types->many();
+      $this->types = $types;
     }
     return $this->types;
   }
@@ -61,17 +54,21 @@ class Ingredient extends Model {
   }
   public function removeType($type_id) {
     $type = $this->container->model->find(IngredientType::class)->one($type_id);
-    $it = \ORM::for_table('ingredients_types')
-      ->where('ingredient_id', $this->id)
-      ->where('type_id', $type->id)
-      ->findOne();
-    if ($it) {
-      $it->delete();
+    $query = "DELETE FROM ingredients_types WHERE ingredient_id = ? AND type_id = ?";
+    $st = \ORM::getDb()->prepare($query);
+    $st->execute([
+      $this->id,
+      $type->id
+    ]);
+  }
+  public function resetTypes() {
+    foreach ($this->types() as $type) {
+      $this->removeType($type->id);
     }
   }
 
   protected $unit;
-  public function unit($recipe) {
+  public function unit(Recipe $recipe) {
     if ($this->unit == null) {
       $unit = $this->container->model->find(Unit::class)
         ->select(['units.*'])
@@ -88,12 +85,52 @@ class Ingredient extends Model {
     }
     return $this->unit;
   }
+  protected $amount;
+  public function amount($reference) {
+    if ($this->amount == null) {
+      $is = $this->container->model->find(StepsIngredients::class)
+        ->select('SUM(steps_ingredients.amount) / recipes.feeds as amount')
+        ->join([
+          ['recipes_steps', 'recipes_steps.step_id', 'steps_ingredients.step_id'],
+          ['recipes', 'recipes.id', 'recipes_steps.recipe_id']
+        ])
+        ->where([
+          'steps_ingredients.ingredient_id' => $this->id,
+          'recipes_steps.recipe_id' => $reference->id
+        ])
+        ->group('recipes_steps.recipe_id')
+        ->one();
+      $amount = $is->amount;
+      $this->amount = $amount;
+    }
+    return $this->amount * $this->container->cfg->get('configuration.alimenta');
+  }
+
+  protected $recipes;
+  public function recipes() {
+    if ($this->recipes == null) {
+      $recipes = $this->container->model->find(Recipe::class)
+        ->select('recipes.*')
+        ->join([
+          ['recipes_steps', 'recipes_steps.recipe_id', 'recipes.id'],
+          ['steps_ingredients', 'steps_ingredients.step_id', 'recipes_steps.step_id']
+        ])
+        ->where([
+          'steps_ingredients.ingredient_id' => $this->id
+        ])
+        ->many();
+      $this->recipes = $recipes;
+    }
+    return $this->recipes;
+  }
 
   public function __toArray(): array {
     $arr = parent::__toArray();
-    $arr['types'] = array_map(function($item) {
-      return $item->__toArray();
-    }, $this->types());
+    if ($this->types()) {
+      $arr['types'] = array_map(function($item) {
+        return $item->__toArray();
+      }, $this->types());
+    }
     return $arr;
   }
 }

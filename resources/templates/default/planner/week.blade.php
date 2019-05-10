@@ -1,7 +1,21 @@
 @extends('planner.layout.base')
 
 @section('planner_title')
-  Men&uacute; de la Semana
+  Men&uacute; de la Semana {{$week_start->format('W')}} -
+  <a href="{{$base_url}}/planner/month/{{$week_start->format('Y-m-d')}}">
+    {{ucfirst($week_start->isoFormat('MMMM'))}}
+    <i class="icons">
+      <i class="icon"></i>
+      <i class="bottom right corner level up icon"></i>
+    </i>
+  </i>
+  <a href="{{$base_url}}/planner/year/{{$week_start->format('Y-m-d')}}">
+    {{$week_start->format('Y')}}
+    <i class="icons">
+      <i class="icon"></i>
+      <i class="bottom right corner level up icon"></i>
+    </i>
+  </a>
 @endsection
 
 @section('planner_content')

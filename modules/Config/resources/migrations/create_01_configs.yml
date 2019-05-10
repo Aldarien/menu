@@ -9,6 +9,10 @@ data:
           unsigned: true
         primary: true
         auto_increment: true
+      - name: denomination
+        type:
+          name: varchar
+          length: 50
       - name: description
         type:
           name: varchar
