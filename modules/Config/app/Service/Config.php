@@ -1,6 +1,8 @@
 <?php
 namespace App\Service;
 
+use Config\Config as CModel;
+
 class Config {
   protected $data;
 
@@ -24,6 +26,17 @@ class Config {
       }
       $loader = new $loader($folder . DIRECTORY_SEPARATOR . $file->getFilename());
       $this->data->{$loader->getName()} = $loader->load();
+    }
+  }
+  public function dbload($container) {
+    $configs = $container->model->find(CModel::class)->many();
+    if (!$config) {
+      return $this;
+    }
+    $this->data['configuration'] = [];
+    foreach ($configs as $config) {
+      $name = str_replace(' ', '', strtolower($config->description));
+      $this->data['configuration'][$name] = $config->value;
     }
   }
   public function get($name, $current = null, $full = '') {

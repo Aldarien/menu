@@ -1,6 +1,6 @@
 <?php
 $app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware($app));
-$app->add(new App\Middleware\Migrator($app->getContainer()));
+$app->add(new App\Middleware\Migrator($app));
 $app->add(function($request, $response, $next) {
   $start = microtime(true);
   $response = $next($request, $response);

@@ -1,0 +1,18 @@
+action: create
+data:
+  table: configs
+  definitions:
+    columns:
+      - name: id
+        type:
+          name: int
+          unsigned: true
+        primary: true
+        auto_increment: true
+      - name: description
+        type:
+          name: varchar
+          length: 100
+      - name: value
+        type:
+          name: blob

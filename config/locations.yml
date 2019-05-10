@@ -7,3 +7,7 @@ models:
   base: "{locations.base}/menu_models"
   resources: "{locations.models.base}/resources"
   migrations: "{locations.models.resources}/migrations"
+configs:
+  base: "{locations.base}/modules/Config"
+  resources: "{locations.configs.base}/resources"
+  migrations: "{locations.configs.resources}/migrations"

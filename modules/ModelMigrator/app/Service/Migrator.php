@@ -3,7 +3,7 @@ namespace App\Service;
 
 use Psr\Container\ContainerInterface;
 
-class ModelMigrator {
+class Migrator {
   protected $data;
   protected $check;
   protected $container;
@@ -12,8 +12,8 @@ class ModelMigrator {
     $this->container = $container;
   }
 
-  public function load() {
-    $dir = new \DirectoryIterator($this->container->cfg->get('locations.models.migrations'));
+  public function load(string $migrations) {
+    $dir = new \DirectoryIterator($migrations);
     $models = [];
     foreach ($dir as $file) {
       if ($file->isDir()) {

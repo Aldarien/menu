@@ -1,0 +1,8 @@
+action: insert
+data:
+  table: configs
+  columns:
+    - description
+    - value
+  values:
+    - ['Alimentar a', '3']
