@@ -14,10 +14,11 @@ class Day extends Controller {
     if (isset($arguments['day'])) {
       $date = Carbon::parse($arguments['day'], $this->container->cfg->get('app.timezone'));
     }
-    $day = $this->container->model->find(DModel::class)->where(['date' => $date->format('Y-m-d')])->one();
+    $day = $this->container->model->find(DModel::class)->where(['date' => $date->format('Y-m-d')])->sort('time')->many();
     if (!$day) {
       $recipes = $this->container->model->find(Recipe::class)->sort(['title'])->many();
       $recipe = $recipes[mt_rand(0, count($recipes) - 1)];
+      
       $data = [
         'date' => $date->format('Y-m-d'),
         'recipe_id' => $recipe->id

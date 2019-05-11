@@ -4,7 +4,6 @@ namespace Menu;
 use App\Definition\Model;
 
 /**
- * @property int $id
  * @property Step $step_id
  * @property Ingredient $ingredient_id
  * @property int $amount

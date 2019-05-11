@@ -1,26 +1,28 @@
 action: create
 data:
-  table: days
+  table: recipes_steps
   definitions:
     columns:
-      - name: date
-        type:
-          name: date
-      - name: time
-        type:
-          name: int
-          unsigned: true
-          length: 1
       - name: recipe_id
         type:
           name: int
           unsigned: true
-    primary:
-      - date
-      - time
+      - name: step_id
+        type:
+          name: int
+          unsigned: true
+      - name: order
+        type:
+          name: int
+          unsigned: true
     references:
       - local: recipe_id
         table: recipes
+        keys: id
+        delete: cascade
+        update: cascade
+      - local: step_id
+        table: steps
         keys: id
         delete: cascade
         update: cascade

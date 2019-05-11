@@ -21,15 +21,9 @@
           <td><a href="{{$base_url}}/book/recipe/{{$recipe->id}}">{{$recipe->title}}</a></td>
           <td>
             @if ($recipe->categories())
-              <div class="ui grid">
-                <div class="row">
-                  @foreach ($recipe->categories('description') as $category)
-                    <div class="column">
-                      {{ucwords($category->description)}}
-                    </div>
-                  @endforeach
-                </div>
-              </div>
+              {{implode(' - ', array_map(function($item) {
+                return $item->description;
+              }, $recipe->categories('description')))}}
             @endif
           </td>
         </tr>

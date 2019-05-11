@@ -3,27 +3,22 @@ data:
   table: recipes_categories
   definitions:
     columns:
-      - name: id
-        type:
-          name: int
-          unsigned: true
-        primary: true
-        auto_increment: true
       - name: recipe_id
         type:
           name: int
           unsigned: true
-        references:
-          table: recipes
-          keys: id
-          delete: cascade
-          update: cascade
       - name: category_id
         type:
           name: int
           unsigned: true
-        references:
-          table: recipe_categories
-          keys: id
-          delete: cascade
-          update: cascade
+    references:
+      - local: recipe_id
+        table: recipes
+        keys: id
+        delete: cascade
+        update: cascade
+      - local: category_id
+        table: categories
+        keys: id
+        delete: cascade
+        update: cascade

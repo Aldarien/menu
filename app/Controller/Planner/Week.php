@@ -27,30 +27,31 @@ class Week extends Controller {
     for($i = 0; $i < 7; $i ++) {
       $random_recipes[$i] = $recipes[mt_rand(0, count($recipes) - 1)];
     }
+    if (!$days) {
+      $days = [];
+    }
     $days = $this->saveWeek($week_start, $days, $random_recipes);
     return $this->container->view->render($response, 'planner.week', compact('days', 'week_start', 'random_recipes'));
   }
   protected function saveWeek(\DateTime $week_start, array $days, array $recipes) {
     for ($i = 0; $i < 7; $i ++) {
       $exists = false;
-      if ($days) {
+      if (count($days) > 0) {
         foreach ($days as $day) {
           if ($day->date() == $week_start->copy()->addDays($i)) {
             $exists = true;
           }
         }
-      } else {
-        $days = [];
       }
-    }
-    if (!$exists) {
-      $data = [
-        'date' => $week_start->copy()->addDays($i)->format('Y-m-d'),
-        'recipe_id' => $random_recipes[$i]->id
-      ];
-      $day = $this->container->model->create(Day::class, $data);
-      $day->save();
-      $days []= $day;
+      if (!$exists) {
+        $data = [
+          'date' => $week_start->copy()->addDays($i)->format('Y-m-d'),
+          'recipe_id' => $recipes[$i]->id
+        ];
+        $day = $this->container->model->create(Day::class, $data);
+        $day->save();
+        $days []= $day;
+      }
     }
     return $days;
   }

@@ -29,6 +29,7 @@ class Config {
     }
   }
   public function dbload($container) {
+    $migrations = (new Migrator($container))->load($this->get('locations.configs.migrations'))->check()->migrate();
     $configs = $container->model->find(CModel::class)->many();
     if (!$configs) {
       return $this;

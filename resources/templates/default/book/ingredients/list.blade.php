@@ -28,9 +28,9 @@
             </td>
             <td>
               @if ($ingredient->types())
-                @foreach ($ingredient->types() as $type)
-                  {{$type->description}}
-                @endforeach
+                {{implode(' - ', array_map(function($item) {
+                  return $item->description;
+                }, $ingredient->types('description')))}}
               @endif
             </td>
             <td class="right aligned">

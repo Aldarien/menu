@@ -1,24 +1,37 @@
 action: create
 data:
-  table: ingredients_types
+  table: steps_ingredients
   definitions:
     columns:
+      - name: step_id
+        type:
+          name: int
+          unsigned: true
       - name: ingredient_id
         type:
           name: int
           unsigned: true
-      - name: type_id
+      - name: amount
+        type:
+          name: int
+          unsigned: true
+      - name: unit_id
         type:
           name: int
           unsigned: true
     references:
+      - local: step_id
+        table: steps
+        keys: id
+        delete: cascade
+        update: cascade
       - local: ingredient_id
         table: ingredients
         keys: id
         delete: cascade
         update: cascade
-      - local: type_id
-        table: ingredient_types
+      - local: unit_id
+        table: units
         keys: id
         delete: cascade
         update: cascade

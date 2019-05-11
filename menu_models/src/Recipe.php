@@ -13,14 +13,14 @@ class Recipe extends Model {
   public static $_table = 'recipes';
 
   public function feeds() {
-    return $this->feeds * $this->container->cfg->get('configuration.alimenta');
+    return $this->container->cfg->get('configuration.alimenta');
   }
   protected $categories;
   public function categories(string $sort = '') {
     if ($this->categories == null) {
       $categories = $this->hasManyThrough(Category::class, 'recipes_categories', 'recipe_id', 'category_id');
       if ($sort != '') {
-        $categories = $categories->sort(['recipe_categories.' . $sort]);
+        $categories = $categories->sort('recipe_categories.' . $sort);
       }
       $this->categories = $categories->many();
     }
@@ -52,7 +52,7 @@ class Recipe extends Model {
     }
   }
   public function removeCategory(int $category_id) {
-    $category = $this->container->model->find(Category::class)->one($type_id);
+    $category = $this->container->model->find(Category::class)->one($category_id);
     $it = \ORM::for_table('recipes_categories')
       ->where('recipe_id', $this->id)
       ->where('category_id', $category->id)
@@ -61,6 +61,12 @@ class Recipe extends Model {
       $it->delete();
     }
   }
+  public function resetCategories() {
+    foreach ($this->categories() as $category) {
+      $this->removeCategory($category->id);
+    }
+  }
+
   protected $steps;
   public function steps() {
     if ($this->steps == null) {
@@ -70,12 +76,15 @@ class Recipe extends Model {
     return $this->steps;
   }
   public function addStep(array $data) {
+    $data = [
+      'method_id' => $data['method_id']
+    ];
     $step = $this->container->model->create(Step::class, $data);
     $step->save();
     $data = [
       'recipe_id' => $this->id,
       'step_id' => $step->id,
-      'order' => count($this->steps())
+      'order' => ($this->steps()) ? count($this->steps()) : 1
     ];
     $rs = $this->container->model->create(RecipesSteps::class, $data);
     $rs->save();
@@ -83,13 +92,12 @@ class Recipe extends Model {
     return $step;
   }
   public function removeStep(int $step_id) {
-    $rs = $this->container->model->find(RecipesSteps::class)
-      ->where([
-        'recipe_id' => $this->id,
-        'step_id' => $step_id
-      ])
-      ->one();
-    $rs->delete();
+    $query = 'DELETE FROM recipes_steps WHERE recipe_id = ? AND step_id = ?';
+    $st = \ORM::getDb()->prepare($query);
+    $st->execute([
+      $this->id,
+      $step_id
+    ]);
   }
   protected $ingredients;
   public function ingredients() {
@@ -113,12 +121,16 @@ class Recipe extends Model {
 
   public function __toArray(): array {
     $arr = parent::__toArray();
-    $arr['categories'] = array_map(function($item) {
-      return $item->__toArray();
-    }, $this->categories);
-    $arr['steps'] = array_map(function($item) {
-      return $item->__toArray();
-    }, $this->steps());
+    if ($this->categories()) {
+      $arr['categories'] = array_map(function($item) {
+        return $item->__toArray();
+      }, $this->categories());
+    }
+    if ($this->steps()) {
+      $arr['steps'] = array_map(function($item) {
+        return $item->__toArray();
+      }, $this->steps());
+    }
     return $arr;
   }
 }

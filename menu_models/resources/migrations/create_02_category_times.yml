@@ -1,25 +1,21 @@
 action: create
 data:
-  table: methods
+  table: categories_times
   definitions:
     columns:
-      - name: id
+      - name: category_id
         type:
           name: int
           unsigned: true
-        primary: true
-        auto_increment: true
-      - name: description
-        type:
-          name: varchar
-          length: 50
-      - name: vessel_id
+      - name: time
         type:
           name: int
           unsigned: true
+          length: 1
+    primary: time
     references:
-      - local: vessel_id
-        table: vessels
+      - local: category_id
+        table: categories
         keys: id
         delete: cascade
         update: cascade

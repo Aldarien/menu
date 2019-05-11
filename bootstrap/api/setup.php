@@ -7,5 +7,6 @@ $container['model'] = function($container) {
 $container['cfg'] = function($c) {
   $cfg = new App\Service\Config(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config');
   $cfg->set('locations.base', '../..');
+  $cfg->dbload($c);
   return $cfg;
 };

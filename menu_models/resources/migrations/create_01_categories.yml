@@ -1,15 +1,15 @@
 action: create
 data:
-  table: recipe_categories
+  table: categories
   definitions:
     columns:
       - name: id
         type:
           name: int
           unsigned: true
+        primary: true
         auto_increment: true
       - name: description
         type:
           name: varchar
           length: 50
-    primary: id

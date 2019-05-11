@@ -70,11 +70,15 @@ class Migrator {
       $item = $key . ' IN (' . implode(', ', $item) . ')';
     });
     $query .= implode(' AND ', $arr);
-    $st = \ORM::getDb()->query($query);
-    if ($st->rowCount() > 0) {
-      return true;
+    try {
+      $st = \ORM::getDb()->query($query);
+      if ($st->rowCount() > 0) {
+        return true;
+      }
+      return false;
+    } catch (\Exception $e) {
+      return false;
     }
-    return false;
   }
   public function migrate() {
     $output = [];

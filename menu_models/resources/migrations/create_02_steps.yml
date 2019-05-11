@@ -8,13 +8,14 @@ data:
           name: int
           unsigned: true
         primary: true
-        auto_complete: true
+        auto_increment: true
       - name: method_id
         type:
           name: int
           unsigned: true
-        references:
-          table: methods
-          keys: id
-          delete: cascade
-          update: cascade
+    references:
+      - local: method_id
+        table: methods
+        keys: id
+        delete: cascade
+        update: cascade

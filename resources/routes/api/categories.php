@@ -1,6 +1,6 @@
 <?php
-use App\Controller\RecipeCategories;
+use App\Controller\API\Categories;
 
-$app->group('/recipecategories', function($app) {
-  $app->get('', RecipeCategories::class . ':api_list');
+$app->group('/categories', function($app) {
+  $app->get('', Categories::class);
 });

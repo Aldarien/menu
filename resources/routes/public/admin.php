@@ -2,7 +2,7 @@
 use App\Controller\Admin\Admin;
 
 $app->group('/admin', function($app) {
-  $app->get('', Admin::class . ':config');
+  $app->get('[/]', Admin::class . ':config');
   $app->post('/config', Admin::class . ':do_config');
 
   $files = new DirectoryIterator(realpath($app->getContainer()->cfg->get('locations.routes') . '/public/admin'));

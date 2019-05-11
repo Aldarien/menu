@@ -4,7 +4,13 @@ data:
   columns:
     - description
   values:
-    - [proteina]
-    - [verdura]
-    - [fruta]
-    - [aliño]
+    - [Proteina]
+    - [Verdura]
+    - [Fruta]
+    - [Aliño]
+    - [Carne]
+    - [Pollo]
+    - [Cerdo]
+    - [Pescado]
+    - [Legumbres]
+    - [Grano]

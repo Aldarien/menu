@@ -1,0 +1,11 @@
+action: insert
+data:
+  table: categories
+  columns:
+    - description
+  values:
+    - [Desayuno]
+    - [Almuerzo]
+    - [Comida]
+    - [Once]
+    - [Liviana]

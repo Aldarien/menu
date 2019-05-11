@@ -1,38 +1,32 @@
 <?php
 namespace App\Controller\Book;
 
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use App\Definition\Controller;
 use Menu\Recipe;
 
-class Recipes extends Controller {
-  public function __invoke(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $recipes = $this->container->model->find(Recipe::class)->sort(['title'])->many();
-    return $this->container->view->render($response, 'book.recipes.list', compact('recipes'));
+class Recipes extends Base {
+  public function __construct(ContainerInterface $container) {
+    parent::__construct($container);
+    $this->singular = 'recipe';
+    $this->plural = 'recipes';
+    $this->model = Recipe::class;
+    $this->sort = 'title';
+    $this->columns = ['title', 'image', 'feeds'];
   }
-  public function show(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $recipe = $this->container->model->find(Recipe::class)->one($arguments['recipe']);
-    return $this->container->view->render($response, 'book.recipes.show', compact('recipe'));
-  }
-  public function add(RequestInterface $request, ResponseInterface $response, $arguments) {
-    return $this->container->view->render($response, 'book.recipes.add');
-  }
-  public function do_add(RequestInterface $request, ResponseInterface $response, $arguments) {
-    $post = $request->getParsedBody();
-    $data = [
-      'title' => $post['title'],
-      'image' => $post['image']
-    ];
-    $recipe = $this->container->model->create(Recipe::class, $data);
-    $recipe->save();
+
+  protected function extraAdd($obj, array $post) {
     $categories = explode(',', $post['categories']);
     foreach ($categories as $category_id) {
       if ($category_id == '') {
         continue;
       }
-      $recipe->addCategory($category_id);
+      $obj->addCategory($category_id);
     }
-    return $response->withRedirect($this->container->base_url . '/book/recipes');
+  }
+  protected function extraEdit($obj, array $post) {
+    $obj->resetCategories();
+    $this->extraAdd($obj, $post);
   }
 }

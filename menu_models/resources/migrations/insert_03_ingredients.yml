@@ -1,8 +1,0 @@
-action: insert
-data:
-  table: ingredients
-  columns:
-    - description
-  values:
-    - [carne de vacuno]
-    - [choclo]
