@@ -55,7 +55,7 @@
         @foreach ($recipe->ingredients() as $ingredient)
           <tr>
             <td>
-              <i class="mini circle icon"></i> {{$ingredient->amount($recipe)}} {{$ingredient->unit($recipe)->abreviation}}. de
+              <i class="mini circle icon"></i> {{$ingredient->amount * $recipe->feeds() / $recipe->feeds}} {{$ingredient->unit->abreviation}}. de
               {{ucwords($ingredient->description)}}
             </td>
           </tr>
@@ -79,12 +79,12 @@
       <tbody>
         @foreach ($recipe->steps() as $step)
           <tr>
-            <td>{{$step->order($recipe)}}</td>
+            <td>{{$step->order}}</td>
             <td>
               {{$step->method()->description}}
               @if ($step->ingredients())
                 @foreach ($step->ingredients() as $ingredient)
-                  {{$ingredient->amount($recipe)}} {{$ingredient->unit($recipe)->abreviation}} de {{$ingredient->description}}
+                  {{$ingredient->amount($step)}} {{$ingredient->unit($step)->abreviation}} de {{$ingredient->description}}
                 @endforeach
               @endif
               en {{$step->method()->vessel()->description}}

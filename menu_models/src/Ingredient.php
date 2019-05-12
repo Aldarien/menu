@@ -71,39 +71,73 @@ class Ingredient extends Model {
   }
 
   protected $unit;
-  public function unit(Recipe $recipe) {
-    if ($this->unit == null) {
-      $unit = $this->container->model->find(Unit::class)
-        ->select(['units.*'])
-        ->join([
-          ['steps_ingredients', 'steps_ingredients.unit_id', 'units.id'],
-          ['recipes_steps', 'recipes_steps.step_id', 'steps_ingredients.step_id']
-        ])
-        ->where([
-          'steps_ingredients.ingredient_id' => $this->id,
-          'recipes_steps.recipe_id' => $recipe->id
-        ])
-        ->one();
-      $this->unit = $unit;
+  public function unit($reference) {
+    $class = get_class($reference);
+    if ($this->unit[$class] == null) {
+      switch ($class) {
+        case Recipe::class:
+          $unit = $this->container->model->find(Unit::class)
+            ->select(['units.*'])
+            ->join([
+              ['steps_ingredients', 'steps_ingredients.unit_id', 'units.id'],
+              ['steps', 'steps.id', 'steps_ingredients.step_id']
+            ])
+            ->where([
+              'steps_ingredients.ingredient_id' => $this->id,
+              'steps.recipe_id' => $reference->id
+            ])
+            ->one();
+          break;
+        case Step::class:
+          $unit = $this->container->model->find(Unit::class)
+            ->select(['units.*'])
+            ->join([
+              ['steps_ingredients', 'steps_ingredients.unit_id', 'units.id'],
+              ['steps', 'steps.id', 'steps_ingredients.step_id']
+            ])
+            ->where([
+              'steps_ingredients.ingredient_id' => $this->id,
+              'steps.id' => $reference->id
+            ])
+            ->one();
+          break;
+      }
+      $this->unit[$class] = $unit;
     }
-    return $this->unit;
+    return $this->unit[$class];
   }
   protected $amount;
   public function amount($reference) {
     if ($this->amount == null) {
-      $is = $this->container->model->find(StepsIngredients::class)
-        ->select('SUM(steps_ingredients.amount) / recipes.feeds as amount')
-        ->join([
-          ['recipes_steps', 'recipes_steps.step_id', 'steps_ingredients.step_id'],
-          ['recipes', 'recipes.id', 'recipes_steps.recipe_id']
-        ])
-        ->where([
-          'steps_ingredients.ingredient_id' => $this->id,
-          'recipes_steps.recipe_id' => $reference->id
-        ])
-        ->group('recipes_steps.recipe_id')
-        ->one();
-      $amount = $is->amount;
+      if (is_a($reference, Recipe::class)) {
+        $is = $this->container->model->find(StepsIngredients::class)
+          ->select('SUM(steps_ingredients.amount) / recipes.feeds as amount')
+          ->join([
+            ['steps', 'steps.id', 'steps_ingredients.step_id'],
+            ['recipes', 'recipes.id', 'steps.recipe_id']
+          ])
+          ->where([
+            'steps_ingredients.ingredient_id' => $this->id,
+            'steps.recipe_id' => $reference->id
+          ])
+          ->group('steps.recipe_id')
+          ->one();
+        $amount = $is->amount;
+      } else {
+        $is = $this->container->model->find(StepsIngredients::class)
+          ->select('(steps_ingredients.amount / recipes.feeds) as amount')
+          ->join([
+            ['steps', 'steps.id', 'steps_ingredients.step_id'],
+            ['recipes', 'recipes.id', 'steps.recipe_id']
+          ])
+          ->where([
+            'steps_ingredients.ingredient_id' => $this->id,
+            'steps.id' => $reference->id
+          ])
+          ->group('steps.id')
+          ->one();
+        $amount = $is->amount;
+      }
       $this->amount = $amount;
     }
     return $this->amount * $this->container->cfg->get('configuration.alimenta');
@@ -115,8 +149,8 @@ class Ingredient extends Model {
       $recipes = $this->container->model->find(Recipe::class)
         ->select('recipes.*')
         ->join([
-          ['recipes_steps', 'recipes_steps.recipe_id', 'recipes.id'],
-          ['steps_ingredients', 'steps_ingredients.step_id', 'recipes_steps.step_id']
+          ['steps', 'steps.recipe_id', 'recipes.id'],
+          ['steps_ingredients', 'steps_ingredients.step_id', 'steps.id']
         ])
         ->where([
           'steps_ingredients.ingredient_id' => $this->id

@@ -70,24 +70,19 @@ class Recipe extends Model {
   protected $steps;
   public function steps() {
     if ($this->steps == null) {
-      $steps = $this->hasManyThrough(Step::class, RecipesSteps::class, 'recipe_id', 'step_id')->many();
+      $steps = $this->hasMany(Step::class, 'recipe_id')->many();
       $this->steps = $steps;
     }
     return $this->steps;
   }
   public function addStep(array $data) {
     $data = [
+      'recipe_id' => $this->id,
+      'order' => ($this->steps()) ? count($this->steps()) + 1 : 1,
       'method_id' => $data['method_id']
     ];
     $step = $this->container->model->create(Step::class, $data);
     $step->save();
-    $data = [
-      'recipe_id' => $this->id,
-      'step_id' => $step->id,
-      'order' => ($this->steps()) ? count($this->steps()) : 1
-    ];
-    $rs = $this->container->model->create(RecipesSteps::class, $data);
-    $rs->save();
     $this->steps []= $step;
     return $step;
   }
@@ -103,17 +98,21 @@ class Recipe extends Model {
   public function ingredients() {
     if ($this->ingredients == null) {
       $ingredients = $this->container->model->find(Ingredient::class)
-        ->select(['ingredients.*', 'SUM(steps_ingredients.amount) as amount'])
+        ->select(['ingredients.*', 'SUM(steps_ingredients.amount) as amount', 'steps_ingredients.unit_id'])
         ->join([
           ['steps_ingredients', 'steps_ingredients.ingredient_id', 'ingredients.id'],
-          ['recipes_steps', 'steps_ingredients.step_id', 'recipes_steps.step_id']
+          ['steps', 'steps_ingredients.step_id', 'steps.id']
         ])
-        ->where(['recipes_steps.recipe_id' => $this->id])
-        ->group('ingredients.id')
+        ->where(['steps.recipe_id' => $this->id])
+        ->sort('steps.order')
+        ->group(['ingredients.id', 'steps_ingredients.unit_id'])
         ->many();
       if (count($ingredients) == 1 and $ingredients[0]->id == null) {
         $ingredients = false;
       }
+      array_walk($ingredients, function(&$item, $key, $container) {
+        $item->unit = $container->model->find(Unit::class)->one($item->unit_id);
+      }, $this->container);
       $this->ingredients = $ingredients;
     }
     return $this->ingredients;

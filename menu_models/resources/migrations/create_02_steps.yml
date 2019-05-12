@@ -9,11 +9,24 @@ data:
           unsigned: true
         primary: true
         auto_increment: true
+      - name: recipe_id
+        type:
+          name: int
+          unsigned: true
+      - name: order
+        type:
+          name: int
+          unsigned: true
       - name: method_id
         type:
           name: int
           unsigned: true
     references:
+      - local: recipe_id
+        table: recipes
+        keys: id
+        delete: cascade
+        update: cascade
       - local: method_id
         table: methods
         keys: id

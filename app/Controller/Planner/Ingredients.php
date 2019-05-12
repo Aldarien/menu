@@ -42,6 +42,7 @@ class Ingredients extends Controller {
         ];
         break;
     }
+    $date->setLocale('es_ES');
     $days = $this->container->model->find(Day::class)->where($where)->many();
     $ingredients = [];
     foreach ($days as $day) {
@@ -49,10 +50,11 @@ class Ingredients extends Controller {
         continue;
       }
       foreach ($day->recipe()->ingredients() as $ingredient) {
-        if (($i = array_search($ingredient->id, array_map(function($item) {
-          return $item->id;
+        if (($i = array_search(['id' => $ingredient->id, 'unit' => $ingredient->unit_id], array_map(function($item) {
+          return ['id' => $item->id, 'unit' => $item->unit_id];
         }, $ingredients))) === false) {
           $ingredient->amount = $ingredient->amount($day->recipe());
+          $ingredient->unit = $ingredient->unit($day->recipe());
           $ingredients []= $ingredient;
         } else {
           $ingredients[$i]->amount += $ingredient->amount($day->recipe());

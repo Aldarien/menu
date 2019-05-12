@@ -182,7 +182,7 @@ class ModelFactory {
   }
   protected function query() {
     $query = Model::factory($this->model);
-    $funcs = ['selects', 'joins', 'conditions', 'order', 'limit'];
+    $funcs = ['selects', 'joins', 'conditions', 'groups', 'order', 'limit'];
     foreach ($funcs as $func) {
       $query = $this->{'parse'.ucfirst($func)}($query);
     }

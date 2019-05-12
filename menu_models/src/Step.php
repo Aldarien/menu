@@ -5,6 +5,8 @@ use App\Definition\Model;
 
 /**
  * @property int $id
+ * @property Recipe $recipe_id
+ * @property int $order
  * @property Method $method_id
  */
 class Step extends Model {
@@ -28,27 +30,12 @@ class Step extends Model {
     }
     return $this->ingredients;
   }
-  protected $recipes;
-  public function recipes() {
-    if ($this->recipes == null) {
-      $recipes = $this->hasManyThrough(Recipe::class, RecipesSteps::class, 'recipe_id', 'step_id')->many();
-      $this->recipes = $recipes;
+  protected $recipe;
+  public function recipe() {
+    if ($this->recipe == null) {
+      $this->recipe = $this->belongsTo(Recipe::class, 'recipe_id')->one();
     }
-    return $recipes;
-  }
-  protected $order;
-  public function order(Recipe $recipe) {
-    if ($this->order == null) {
-      $rs = $this->container->model->find(RecipesSteps::class)
-        ->select('order')
-        ->where([
-          'step_id' => $this->id,
-          'recipe_id' => $recipe->id
-        ])
-        ->one();
-      $this->order = $rs->order;
-    }
-    return $this->order;
+    return $this->recipe;
   }
 
   public function __toArray(): array {

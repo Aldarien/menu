@@ -13,7 +13,7 @@ data:
           unsigned: true
       - name: amount
         type:
-          name: int
+          name: double
           unsigned: true
       - name: unit_id
         type:

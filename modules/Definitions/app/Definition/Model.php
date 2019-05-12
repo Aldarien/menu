@@ -41,6 +41,19 @@ class Model extends \Model implements \JsonSerializable {
     ]);
     return $obj;
   }
+  public function hasMany($model_class, $model_reference = null, $self_reference = 'id') {
+    $class = explode("\\", get_class($this));
+    $class = $class[count($class) - 1];
+    $property = strtolower($class);
+    $obj = $this->container->model->find($model_class);
+    if ($model_reference != null) {
+      $model_reference = $property . '_id';
+    }
+    $obj = $obj->where([
+      $model_reference => $this->$self_reference
+    ]);
+    return $obj;
+  }
   public function hasManyThrough($model_class, $table_through = null, $self_through_id = null, $model_through_id = null) {
     $self = $this->getTable();
     $model = (new $model_class())->getTable();
