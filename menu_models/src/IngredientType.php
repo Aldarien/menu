@@ -45,7 +45,7 @@ class IngredientType extends Model {
       ->findOne();
     if (!$it) {
       $query = "INSERT INTO ingredients_types (ingredient_id, type_id) VALUES (?, ?)";
-      $st = \ORM::getDb()->prepare($query);
+      $st = $this->container->pdo->prepare($query);
       $st->execute([$ingredient->id, $this->id]);
     }
   }

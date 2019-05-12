@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e9982385681772b90194798f97e6fa1",
+    "content-hash": "ae20f41b4991805127c6c80b288355fb",
     "packages": [
         {
             "name": "aldarien/config",
@@ -209,6 +209,32 @@
                 }
             ],
             "description": "Query builder"
+        },
+        {
+            "name": "aldarien/random-recipe",
+            "version": "dev-develop",
+            "dist": {
+                "type": "path",
+                "url": "./modules/RandomRecipe",
+                "reference": "727423537cc6b90e39a4af4cfcdda15c8e162009",
+                "shasum": null
+            },
+            "type": "module",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aldarien",
+                    "email": "aldarien85@gmail.com"
+                }
+            ],
+            "description": "Load random recipes by time period"
         },
         {
             "name": "aldarien/route-loader",
@@ -1824,6 +1850,7 @@
         "aldarien/menu_models": 20,
         "aldarien/model-factory": 20,
         "aldarien/model-migrator": 20,
+        "aldarien/random-recipe": 20,
         "aldarien/query": 20,
         "aldarien/loaders": 20
     },

@@ -27,6 +27,9 @@ class Base extends Controller {
     }
     $obj = $this->container->model->create($this->model, $data);
     $obj->save();
+    if (method_exists($this, 'extraAdd')) {
+      $this->extraAdd($obj, $post);
+    }
     return $response->withRedirect($this->container->base_url . '/admin/' . $this->plural);
   }
   public function edit(RequestInterface $request, ResponseInterface $response, $arguments) {
@@ -45,6 +48,9 @@ class Base extends Controller {
     }
     if ($changed) {
       $obj->save();
+    }
+    if (method_exists($this, 'extraEdit')) {
+      $this->extraEdit($obj, $post);
     }
     return $response->withRedirect($this->container->base_url . '/admin/' . $this->plural);
   }

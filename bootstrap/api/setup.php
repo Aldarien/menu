@@ -10,3 +10,9 @@ $container['cfg'] = function($c) {
   $cfg->dbload($c);
   return $cfg;
 };
+$container['pdo'] = function($c) {
+  return \ORM::getDb();
+};
+$container['random_recipe'] = function($c) {
+  return new App\Service\RandomRecipe($c);
+};

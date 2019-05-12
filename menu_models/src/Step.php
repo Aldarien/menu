@@ -32,22 +32,10 @@ class Step extends Model {
   public function recipes() {
     if ($this->recipes == null) {
       $recipes = $this->hasManyThrough(Recipe::class, RecipesSteps::class, 'recipe_id', 'step_id')->many();
-      /*$recipes = $this->container->model->find(Recipe::class)
-        ->select('recipes.*')
-        ->join([
-          ['recipes_steps', 'recipes_steps.recipe_id', 'recipes.id']
-        ])
-        ->where([
-          'recipes_steps.step_id' => $this->id
-        ])
-        ->many();*/
       $this->recipes = $recipes;
     }
     return $recipes;
   }
-  /*public function recipesSteps() {
-    return $this->hasMany(RecipesSteps::class, 'step_id')->findMany();
-  }*/
   protected $order;
   public function order(Recipe $recipe) {
     if ($this->order == null) {

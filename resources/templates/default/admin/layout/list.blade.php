@@ -27,7 +27,13 @@
                   $str = "\$val = \$item->$col;";
                   eval($str);
                   ?>
-                  {{$val}}
+                  @if (is_array($val))
+                    {{implode(', ', array_map(function($item) {
+                      return $item->description;
+                    }, $val))}}
+                  @else
+                    {{$val}}
+                  @endif
                 @else
                   {{$item->$col}}
                 @endif

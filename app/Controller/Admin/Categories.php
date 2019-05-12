@@ -13,4 +13,18 @@ class Categories extends Base {
     $this->sort = 'description';
     $this->columns = ['description'];
   }
+
+  public function extraAdd($obj, array $post) {
+    $times = explode(',', $post['times']);
+    foreach ($times as $time) {
+      if ($time == '') {
+        continue;
+      }
+      $obj->addTime($time);
+    }
+  }
+  public function extraEdit($obj, array $post) {
+    $obj->resetTimes();
+    $this->extraAdd($obj, $post);
+  }
 }

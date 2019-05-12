@@ -47,7 +47,7 @@ class Ingredient extends Model {
       ->findOne();
     if (!$it) {
       $query = "INSERT INTO ingredients_types (ingredient_id, type_id) VALUES (?, ?)";
-      $st = \ORM::getDb()->prepare($query);
+      $st = $this->container->pdo->prepare($query);
       $st->execute([$this->id, $type->id]);
     }
     $this->types []= $type;
@@ -55,13 +55,16 @@ class Ingredient extends Model {
   public function removeType($type_id) {
     $type = $this->container->model->find(IngredientType::class)->one($type_id);
     $query = "DELETE FROM ingredients_types WHERE ingredient_id = ? AND type_id = ?";
-    $st = \ORM::getDb()->prepare($query);
+    $st = $this->container->pdo->prepare($query);
     $st->execute([
       $this->id,
       $type->id
     ]);
   }
   public function resetTypes() {
+    if (!$this->types()) {
+      return;
+    }
     foreach ($this->types() as $type) {
       $this->removeType($type->id);
     }

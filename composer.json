@@ -10,6 +10,7 @@
         "aldarien/menu_models": "dev-develop",
         "aldarien/model-factory": "dev-develop",
         "aldarien/model-migrator": "dev-develop",
+        "aldarien/random-recipe": "dev-develop",
         "aldarien/query": "dev-develop",
         "aldarien/loaders": "dev-develop",
         "rubellum/slim-blade-view": "^0.1.1"
@@ -55,6 +56,10 @@
       {
         "type": "path",
         "url": "./modules/ModelMigrator"
+      },
+      {
+        "type": "path",
+        "url": "./modules/RandomRecipe"
       },
       {
         "type": "path",

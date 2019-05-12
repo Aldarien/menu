@@ -1,0 +1,11 @@
+action: insert
+data:
+  table: times
+  columns:
+    - id
+    - description
+  values:
+    - [1, 'Mañana']
+    - [2, 'Mediodía']
+    - [3, 'Tarde']
+    - [4, 'Noche']

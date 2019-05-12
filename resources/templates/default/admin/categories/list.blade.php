@@ -5,7 +5,7 @@
 @endsection
 
 <?php
-  $columns = ['description' => 'Descripción'];
+  $columns = ['description' => 'Descripción', 'times()' => 'Períodos'];
   $list = 'categories';
   $link = 'category';
   $items = $categories

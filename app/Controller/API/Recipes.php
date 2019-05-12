@@ -10,13 +10,13 @@ use Menu\Day;
 class Recipes extends Controller {
   public function random(RequestInterface $request, ResponseInterface $response, $arguments) {
     $post = $request->getParsedBody();
-    $recipes = $this->container->model->find(Recipe::class)->many();
-    $recipe = $recipes[mt_rand(0, count($recipes) - 1)];
+    $time = $post['time'];
+    $recipe = $this->container->random_recipe->random($time);
     $data = [
       'date' => $post['date'],
-      'recipe_id' => $recipe->id
+      'time_id' => $post['time']
     ];
-    $day = $this->container->model->find(Day::class)->where(['date' => $post['date']])->one();
+    $day = $this->container->model->find(Day::class)->where($data)->one();
     if ($day->recipe_id != $recipe->id) {
       $day->recipe_id = $recipe->id;
       $day->save();

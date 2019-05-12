@@ -7,7 +7,7 @@ data:
         type:
           name: int
           unsigned: true
-      - name: time
+      - name: time_id
         type:
           name: int
           unsigned: true
@@ -16,6 +16,11 @@ data:
     references:
       - local: category_id
         table: categories
+        keys: id
+        delete: cascade
+        update: cascade
+      - local: time_id
+        table: times
         keys: id
         delete: cascade
         update: cascade

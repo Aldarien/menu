@@ -6,6 +6,7 @@ use App\Definition\Model;
 
 /**
  * @property \DateTime $date
+ * @property int $time
  * @property Recipe $recipe_id
  */
 class Day extends Model {

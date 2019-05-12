@@ -93,7 +93,7 @@ class Recipe extends Model {
   }
   public function removeStep(int $step_id) {
     $query = 'DELETE FROM recipes_steps WHERE recipe_id = ? AND step_id = ?';
-    $st = \ORM::getDb()->prepare($query);
+    $st = $this->container->pdo->prepare($query);
     $st->execute([
       $this->id,
       $step_id

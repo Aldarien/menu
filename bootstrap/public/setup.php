@@ -9,6 +9,9 @@ $container['cfg'] = function($c) {
   $cfg->dbload($c);
   return $cfg;
 };
+$container['pdo'] = function($c) {
+  return \ORM::getDb();
+};
 $container['base_url'] = function($c) {
   $base = [];
   $base []= $_SERVER['REQUEST_SCHEME'] . '://';
@@ -29,4 +32,7 @@ $container['view'] = function ($container) {
       'base_url' => $container->base_url
     ]
   );
+};
+$container['random_recipe'] = function($c) {
+  return new App\Service\RandomRecipe($c);
 };

@@ -1,0 +1,1 @@
+{{!d($ingredients, $date, $period)}}
