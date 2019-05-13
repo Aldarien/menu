@@ -19,6 +19,10 @@ data:
         type:
           name: int
           unsigned: true
+    primary:
+      - step_id
+      - ingredient_id
+      - unit_id
     references:
       - local: step_id
         table: steps

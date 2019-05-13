@@ -12,7 +12,9 @@ data:
           name: int
           unsigned: true
           length: 1
-    primary: time
+    primary:
+      - time_id
+      - category_id
     references:
       - local: category_id
         table: categories
