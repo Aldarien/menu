@@ -3,7 +3,7 @@
     "description": "Configuration handler module",
     "type": "module",
     "require": {
-        "aldarien/loaders": "dev-develop"
+        "aldarien/loaders": "dev-master"
     },
     "license": "MIT",
     "authors": [

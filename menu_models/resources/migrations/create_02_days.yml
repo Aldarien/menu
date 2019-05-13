@@ -17,7 +17,7 @@ data:
           unsigned: true
     primary:
       - date
-      - time
+      - time_id
     references:
       - local: recipe_id
         table: recipes

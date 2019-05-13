@@ -11,6 +11,9 @@ data:
         type:
           name: int
           unsigned: true
+    primary:
+      - ingredient_id
+      - type_id
     references:
       - local: ingredient_id
         table: ingredients

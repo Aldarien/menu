@@ -1,22 +1,22 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae20f41b4991805127c6c80b288355fb",
+    "content-hash": "94e906197f4cb0caca5423bceb3bbc46",
     "packages": [
         {
             "name": "aldarien/config",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/Config",
-                "reference": "57adcddc6178fcd27d16e41023bb27cc278f2b87",
+                "reference": "3cb52d22bc8ef8b52b0f159be135de5f4c2e1bf5",
                 "shasum": null
             },
             "require": {
-                "aldarien/loaders": "dev-develop"
+                "aldarien/loaders": "dev-master"
             },
             "type": "module",
             "autoload": {
@@ -38,11 +38,11 @@
         },
         {
             "name": "aldarien/definitions",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/Definitions",
-                "reference": "fcbcb2cdc1b76a7090699714b80575b509adc0c1",
+                "reference": "0c93621292bd564e735f52b03f1497b9e6948837",
                 "shasum": null
             },
             "type": "module",
@@ -64,15 +64,15 @@
         },
         {
             "name": "aldarien/loaders",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/Loaders",
-                "reference": "bbf5d127b8b7bff98d2464b4709a16fcf424bd8c",
+                "reference": "f8e8f6faff1f601f03e91554fb3baaa63a6de13c",
                 "shasum": null
             },
             "require": {
-                "aldarien/definitions": "dev-develop",
+                "aldarien/definitions": "dev-master",
                 "mustangostang/spyc": "^0.6.2"
             },
             "type": "module",
@@ -94,7 +94,7 @@
         },
         {
             "name": "aldarien/menu_models",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./menu_models",
@@ -125,11 +125,11 @@
         },
         {
             "name": "aldarien/model-factory",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/ModelFactory",
-                "reference": "cb38dd2d671f1e5363e42af3487daceeae405f25",
+                "reference": "ea05b37a7c153737d4e7bf64efb0704444438ae5",
                 "shasum": null
             },
             "require": {
@@ -154,16 +154,16 @@
         },
         {
             "name": "aldarien/model-migrator",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/ModelMigrator",
-                "reference": "68a2468eeb282539c139f07815edecdb84dbace9",
+                "reference": "04064bd46ed217ce6b38dc59e94ca93b17e23563",
                 "shasum": null
             },
             "require": {
-                "aldarien/loaders": "dev-develop",
-                "aldarien/query": "dev-develop"
+                "aldarien/loaders": "dev-master",
+                "aldarien/query": "dev-master"
             },
             "type": "module",
             "autoload": {
@@ -185,11 +185,11 @@
         },
         {
             "name": "aldarien/query",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/Query",
-                "reference": "6e2b865d1e5004255a00c468fd826bc65c32f4ba",
+                "reference": "84a74b93c93e0a181f1dedcf8c6995b88b63a1ca",
                 "shasum": null
             },
             "type": "module",
@@ -212,11 +212,11 @@
         },
         {
             "name": "aldarien/random-recipe",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/RandomRecipe",
-                "reference": "727423537cc6b90e39a4af4cfcdda15c8e162009",
+                "reference": "818b65bc08b133bce5ae7eaf611b8eb373fec079",
                 "shasum": null
             },
             "type": "module",
@@ -238,11 +238,11 @@
         },
         {
             "name": "aldarien/route-loader",
-            "version": "dev-develop",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "./modules/RouteLoader",
-                "reference": "424c790a7344957ba1671ef38c6f1629aee94230",
+                "reference": "b1dd448287a493c198542878d84b75deed0ba14e",
                 "shasum": null
             },
             "type": "module",
