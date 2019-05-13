@@ -4,7 +4,7 @@
     "type": "module",
     "require": {
         "mustangostang/spyc": "^0.6.2",
-        "aldarien/definitions": "dev-develop"
+        "aldarien/definitions": "dev-master"
     },
     "license": "MIT",
     "authors": [
