@@ -1,4 +1,5 @@
 default:
+  engine: mysql
   host: localhost
   name: menu
   user:
