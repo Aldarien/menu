@@ -4,8 +4,25 @@
     "type": "project",
     "require": {
         "slim/slim": "^3.12",
+<<<<<<< Updated upstream
         "aldarien/definitions": "dev-master",
         "aldarien/config": "dev-master",
+=======
+<<<<<<< Updated upstream
+        "aldarien/definitions": "dev-develop",
+        "aldarien/config": "dev-develop",
+        "aldarien/route-loader": "dev-develop",
+        "aldarien/menu_models": "dev-develop",
+        "aldarien/model-factory": "dev-develop",
+        "aldarien/model-migrator": "dev-develop",
+        "aldarien/random-recipe": "dev-develop",
+        "aldarien/query": "dev-develop",
+        "aldarien/loaders": "dev-develop",
+=======
+        "aldarien/definitions": "dev-master",
+        "aldarien/config": "dev-master",
+        "aldarien/dbconfigloader": "dev-master",
+>>>>>>> Stashed changes
         "aldarien/route-loader": "dev-master",
         "aldarien/menu_models": "dev-master",
         "aldarien/model-factory": "dev-master",
@@ -13,6 +30,10 @@
         "aldarien/random-recipe": "dev-master",
         "aldarien/query": "dev-master",
         "aldarien/loaders": "dev-master",
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
         "rubellum/slim-blade-view": "^0.1.1"
     },
     "require-dev": {
@@ -40,6 +61,10 @@
       {
         "type": "path",
         "url": "./modules/Config"
+      },
+      {
+        "type": "path",
+        "url": "./modules/DBConfigLoader"
       },
       {
         "type": "path",

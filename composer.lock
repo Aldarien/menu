@@ -4,7 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< Updated upstream
     "content-hash": "94e906197f4cb0caca5423bceb3bbc46",
+=======
+<<<<<<< Updated upstream
+    "content-hash": "ae20f41b4991805127c6c80b288355fb",
+=======
+    "content-hash": "d01e30c8fc40d4e0af1b18e7f6931c10",
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     "packages": [
         {
             "name": "aldarien/config",
@@ -35,6 +43,36 @@
                 }
             ],
             "description": "Configuration handler module"
+        },
+        {
+            "name": "aldarien/dbconfigloader",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./modules/DBConfigLoader",
+                "reference": "cdc9873115057e1662abba56d7af542ab12e64e7",
+                "shasum": null
+            },
+            "require": {
+                "j4mie/paris": "^1.5"
+            },
+            "type": "module",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app",
+                    "DBConfigLoader\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aldarien",
+                    "email": "aldarien85@gmail.com"
+                }
+            ],
+            "description": "Database configuration load according to j4mie/idiorm"
         },
         {
             "name": "aldarien/definitions",
@@ -1846,6 +1884,7 @@
     "stability-flags": {
         "aldarien/definitions": 20,
         "aldarien/config": 20,
+        "aldarien/dbconfigloader": 20,
         "aldarien/route-loader": 20,
         "aldarien/menu_models": 20,
         "aldarien/model-factory": 20,
