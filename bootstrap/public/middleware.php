@@ -1,12 +1,12 @@
 <?php
+include_once dirname(__DIR__) . '/slim/middleware.php';
+
 $app->add(function($request, $response, $next) {
   if (!file_exists($this->settings['renderer']['blade_cache_path'])) {
     mkdir($this->settings['renderer']['blade_cache_path']);
   }
   return $next($request, $response);
 });
-$app->add(new \Zeuxisoo\Whoops\Provider\Slim\WhoopsMiddleware($app));
-$app->add(new App\Middleware\Migrator($app));
 $app->add(function($request, $response, $next) {
   $start = microtime(true);
   $response = $next($request, $response);

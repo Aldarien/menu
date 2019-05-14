@@ -1,4 +1,4 @@
-base: ".."
+base: "realpath(dirname($_SERVER['SCRIPT_FILENAME']) . '/..')"
 cache: "{locations.base}/cache"
 resources: "{locations.base}/resources"
 views: "{locations.resources}/templates"

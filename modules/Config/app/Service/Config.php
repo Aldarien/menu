@@ -83,12 +83,11 @@ class Config {
       foreach ($output as $d) {
         $value = str_replace($d[0], $this->get($d[1]), $value);
       }
-      return $value;
     }
     if (strpos($value, '(') !== false) {
       $str = "\$output = " . $value . ';';
       eval($str);
-      return $output;
+      $value = $output;
     }
     return $value;
   }
