@@ -5,15 +5,15 @@
     "require": {
         "slim/slim": "^3.12",
         "aldarien/benchmark": "@dev",
-        "aldarien/definitions": "dev-master",
-        "aldarien/config": "dev-master",
-        "aldarien/route-loader": "dev-master",
-        "aldarien/menu_models": "dev-master",
-        "aldarien/model-factory": "dev-master",
-        "aldarien/model-migrator": "dev-master",
-        "aldarien/random-recipe": "dev-master",
-        "aldarien/query": "dev-master",
-        "aldarien/loaders": "dev-master",
+        "aldarien/definitions": "@dev",
+        "aldarien/config": "@dev",
+        "aldarien/route-loader": "@dev",
+        "aldarien/menu_models": "@dev",
+        "aldarien/model-factory": "@dev",
+        "aldarien/model-migrator": "@dev",
+        "aldarien/random-recipe": "@dev",
+        "aldarien/query": "@dev",
+        "aldarien/file-loaders": "@dev",
         "aldarien/dbconfigloader": "@dev",
         "rubellum/slim-blade-view": "^0.1.1"
     },
@@ -49,10 +49,6 @@
       },
       {
         "type": "path",
-        "url": "./modules/DBConfigLoader"
-      },
-      {
-        "type": "path",
         "url": "./modules/RouteLoader"
       },
       {
@@ -77,7 +73,11 @@
       },
       {
         "type": "path",
-        "url": "./modules/Loaders"
+        "url": "./modules/FileLoader"
+      },
+      {
+        "type": "path",
+        "url": "./modules/DBConfigLoader"
       }
     ]
 }

@@ -3,7 +3,7 @@
     "description": "Configuration handler module",
     "type": "module",
     "require": {
-        "aldarien/loaders": "dev-master"
+        "aldarien/file-loaders": "@dev"
     },
     "license": "MIT",
     "authors": [
@@ -21,7 +21,7 @@
     "repositories": [
       {
         "type": "path",
-        "url": "../Loaders"
+        "url": "../FileLoader"
       }
     ]
 }

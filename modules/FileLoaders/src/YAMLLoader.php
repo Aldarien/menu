@@ -2,9 +2,9 @@
 namespace Loader;
 
 use \Spyc;
-use App\Definition\Loader;
+use App\Definition\FileLoader;
 
-class YAMLLoader implements Loader {
+class YAMLLoader implements FileLoader {
   protected $name;
   protected $filename;
 

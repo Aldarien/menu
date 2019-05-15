@@ -1,10 +1,10 @@
 {
-    "name": "aldarien/loaders",
+    "name": "aldarien/file-loaders",
     "description": "File loaders module",
     "type": "module",
     "require": {
         "mustangostang/spyc": "^0.6.2",
-        "aldarien/definitions": "dev-master"
+        "aldarien/definitions": "@dev"
     },
     "license": "MIT",
     "authors": [

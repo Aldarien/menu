@@ -1,9 +1,9 @@
 <?php
 namespace Loader;
 
-use App\Definition\Loader;
+use App\Definition\FileLoader;
 
-class JSONLoader implements Loader {
+class PHPLoader implements FileLoader {
   protected $name;
   protected $filename;
 
@@ -13,6 +13,7 @@ class JSONLoader implements Loader {
     $this->name = $info->getBasename($info->getExtension());
   }
   public function load() {
-    return json_decode(trim(file_get_contents($this->filename)));
+
+    return include_once($this->filename);
   }
 }
