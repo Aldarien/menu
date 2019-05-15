@@ -1,7 +1,7 @@
 <?php
 namespace App\Definition;
 
-interface Loader {
+interface FileLoader {
   public function __construct(string $filename);
   public function load();
 }

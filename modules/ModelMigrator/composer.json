@@ -3,8 +3,8 @@
     "description": "Migrator module for Models",
     "type": "module",
     "require": {
-        "aldarien/query": "dev-develop",
-        "aldarien/loaders": "dev-develop"
+        "aldarien/query": "@dev",
+        "aldarien/file-loaders": "@dev"
     },
     "license": "MIT",
     "authors": [
@@ -26,7 +26,7 @@
       },
       {
         "type": "path",
-        "url": "../Loaders"
+        "url": "../FileLoader"
       }
     ]
 }
