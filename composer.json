@@ -7,7 +7,6 @@
         "aldarien/benchmark": "@dev",
         "aldarien/definitions": "dev-master",
         "aldarien/config": "dev-master",
-        "aldarien/dbconfigloader": "dev-master",
         "aldarien/route-loader": "dev-master",
         "aldarien/menu_models": "dev-master",
         "aldarien/model-factory": "dev-master",
@@ -79,10 +78,6 @@
       {
         "type": "path",
         "url": "./modules/Loaders"
-      },
-      {
-        "type": "path",
-        "url": "./modules/DBConfigLoader"
       }
     ]
 }
