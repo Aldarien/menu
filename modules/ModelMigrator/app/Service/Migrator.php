@@ -19,7 +19,7 @@ class Migrator {
       if ($file->isDir()) {
         continue;
       }
-      $class = implode("\\", ['Loader', str_replace('YML', 'YAML', strtoupper($file->getExtension()) . 'Loader')]);
+      $class = implode("\\", ['FileLoaders', str_replace('YML', 'YAML', strtoupper($file->getExtension()) . 'Loader')]);
       if (!class_exists($class)) {
         continue;
       }

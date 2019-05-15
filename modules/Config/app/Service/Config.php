@@ -20,7 +20,7 @@ class Config {
       if ($file->isDir()) {
         continue;
       }
-      $loader = implode("\\", ["Loader", str_replace('YML', 'YAML', strtoupper($file->getExtension()) . 'Loader')]);
+      $loader = implode("\\", ["FileLoaders", str_replace('YML', 'YAML', strtoupper($file->getExtension()) . 'Loader')]);
       if (!class_exists($loader)) {
         continue;
       }
