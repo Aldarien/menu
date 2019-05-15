@@ -4,6 +4,7 @@
     "type": "project",
     "require": {
         "slim/slim": "^3.12",
+        "aldarien/benchmark": "@dev",
         "aldarien/definitions": "dev-develop",
         "aldarien/config": "dev-develop",
         "aldarien/route-loader": "dev-develop",
@@ -13,6 +14,7 @@
         "aldarien/random-recipe": "dev-develop",
         "aldarien/query": "dev-develop",
         "aldarien/loaders": "dev-develop",
+        "aldarien/dbconfigloader": "@dev",
         "rubellum/slim-blade-view": "^0.1.1"
     },
     "require-dev": {
@@ -33,6 +35,10 @@
       }
     },
     "repositories": [
+      {
+        "type": "path",
+        "url": "./modules/Benchmark"
+      },
       {
         "type": "path",
         "url": "./modules/Definitions"
@@ -68,6 +74,10 @@
       {
         "type": "path",
         "url": "./modules/Loaders"
+      },
+      {
+        "type": "path",
+        "url": "./modules/DBConfigLoader"
       }
     ]
 }

@@ -7,9 +7,9 @@ $app->add(function($request, $response, $next) {
   }
   return $next($request, $response);
 });
-$app->add(function($request, $response, $next) {
+/*$app->add(function($request, $response, $next) {
   $start = microtime(true);
   $response = $next($request, $response);
   $end = microtime(true) - $start;
   return $this->view->render($response, 'benchmark', ['time' => round($end, 3) . 's']);
-});
+});*/
