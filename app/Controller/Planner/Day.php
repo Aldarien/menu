@@ -25,6 +25,9 @@ class Day extends Controller {
 
       $days = [];
       foreach ($recipes as $time => $recipe) {
+        if (!$recipe) {
+          continue;
+        }
         $data = [
           'date' => $date->format('Y-m-d'),
           'recipe_id' => $recipe->id,
