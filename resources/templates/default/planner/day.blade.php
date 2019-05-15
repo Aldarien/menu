@@ -18,7 +18,7 @@
           <div class="ui sub header">
             {{$time->description}}
           </div>
-          @if (isset($recipes[$time->id]))
+          @if (isset($recipes[$time->id]) and $recipes[$time->id])
             <br />
             <?php $recipe = $recipes[$time->id] ?>
             @include('planner.recipe_card')
