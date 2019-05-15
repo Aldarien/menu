@@ -1,5 +1,5 @@
 <?php
-namespace Loader;
+namespace FileLoaders;
 
 use \Spyc;
 use App\Definition\FileLoader;

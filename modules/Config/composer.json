@@ -21,7 +21,7 @@
     "repositories": [
       {
         "type": "path",
-        "url": "../FileLoader"
+        "url": "../FileLoaders"
       }
     ]
 }
