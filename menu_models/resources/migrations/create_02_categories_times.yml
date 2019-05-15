@@ -13,8 +13,8 @@ data:
           unsigned: true
           length: 1
     primary:
-      - time_id
       - category_id
+      - time_id
     references:
       - local: category_id
         table: categories

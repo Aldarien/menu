@@ -27,6 +27,7 @@ class Migrator {
       $data = $loader->load();
       $this->data[$file->getBasename('.' . $file->getExtension())] = $data;
     }
+    ksort($this->data);
     return $this;
   }
   public function check() {
