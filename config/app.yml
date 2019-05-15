@@ -1,5 +1,5 @@
 title: Menu
-debug: true
+debug: false
 locale: es_ES
 timezone: America/Santiago
 base_url: /menu
