@@ -7,9 +7,9 @@ data:
         type:
           name: int
           unsigned: true
+        primary: true
         auto_increment: true
       - name: description
         type:
           name: varchar
           length: 50
-    primary: id

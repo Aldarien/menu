@@ -11,6 +11,9 @@ data:
         type:
           name: int
           unsigned: true
+    primary:
+      - recipe_id
+      - category_id
     references:
       - local: recipe_id
         table: recipes
