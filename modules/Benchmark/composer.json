@@ -1,0 +1,18 @@
+{
+    "name": "aldarien/benchmark",
+    "description": "Load random recipes by time period",
+    "type": "module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aldarien",
+            "email": "aldarien85@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "App\\": "app"
+      }
+    }
+}

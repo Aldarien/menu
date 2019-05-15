@@ -4,16 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< Updated upstream
     "content-hash": "94e906197f4cb0caca5423bceb3bbc46",
-=======
-<<<<<<< Updated upstream
-    "content-hash": "ae20f41b4991805127c6c80b288355fb",
-=======
-    "content-hash": "d01e30c8fc40d4e0af1b18e7f6931c10",
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     "packages": [
+        {
+            "name": "aldarien/benchmark",
+            "version": "dev-develop",
+            "dist": {
+                "type": "path",
+                "url": "./modules/Benchmark",
+                "reference": "df654d445d42fefcb4011135471355a7edaa3299",
+                "shasum": null
+            },
+            "type": "module",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aldarien",
+                    "email": "aldarien85@gmail.com"
+                }
+            ],
+            "description": "Load random recipes by time period"
+        },
         {
             "name": "aldarien/config",
             "version": "dev-master",
@@ -400,7 +418,7 @@
         },
         {
             "name": "illuminate/container",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -445,16 +463,16 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
-                "reference": "0b3cbe19051c9a8c247091cc0867d3b65250d093"
+                "reference": "acd524087bcebcc0979748e84ccc0876395ae497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/contracts/zipball/0b3cbe19051c9a8c247091cc0867d3b65250d093",
-                "reference": "0b3cbe19051c9a8c247091cc0867d3b65250d093",
+                "url": "https://api.github.com/repos/illuminate/contracts/zipball/acd524087bcebcc0979748e84ccc0876395ae497",
+                "reference": "acd524087bcebcc0979748e84ccc0876395ae497",
                 "shasum": ""
             },
             "require": {
@@ -485,11 +503,11 @@
             ],
             "description": "The Illuminate Contracts package.",
             "homepage": "https://laravel.com",
-            "time": "2019-04-21T18:51:09+00:00"
+            "time": "2019-05-14T10:54:47+00:00"
         },
         {
             "name": "illuminate/events",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -534,16 +552,16 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
-                "reference": "e3c7302b147704420041c07aac538b9de67ebb8f"
+                "reference": "6fb134b981a01fca0b44b30c1bf434d157594d53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/e3c7302b147704420041c07aac538b9de67ebb8f",
-                "reference": "e3c7302b147704420041c07aac538b9de67ebb8f",
+                "url": "https://api.github.com/repos/illuminate/filesystem/zipball/6fb134b981a01fca0b44b30c1bf434d157594d53",
+                "reference": "6fb134b981a01fca0b44b30c1bf434d157594d53",
                 "shasum": ""
             },
             "require": {
@@ -582,20 +600,20 @@
             ],
             "description": "The Illuminate Filesystem package.",
             "homepage": "https://laravel.com",
-            "time": "2019-04-08T12:56:11+00:00"
+            "time": "2019-05-14T16:00:56+00:00"
         },
         {
             "name": "illuminate/support",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "7fbf8d76946ee53587955b670bd8a47e3d48e854"
+                "reference": "128c6aaa1599811a04fd10c2d68e1213e433da3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/7fbf8d76946ee53587955b670bd8a47e3d48e854",
-                "reference": "7fbf8d76946ee53587955b670bd8a47e3d48e854",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/128c6aaa1599811a04fd10c2d68e1213e433da3f",
+                "reference": "128c6aaa1599811a04fd10c2d68e1213e433da3f",
                 "shasum": ""
             },
             "require": {
@@ -643,11 +661,11 @@
             ],
             "description": "The Illuminate Support package.",
             "homepage": "https://laravel.com",
-            "time": "2019-04-25T14:06:24+00:00"
+            "time": "2019-05-14T13:37:34+00:00"
         },
         {
             "name": "illuminate/view",
-            "version": "v5.8.15",
+            "version": "v5.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
@@ -1882,6 +1900,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "aldarien/benchmark": 20,
         "aldarien/definitions": 20,
         "aldarien/config": 20,
         "aldarien/dbconfigloader": 20,
@@ -1891,7 +1910,8 @@
         "aldarien/model-migrator": 20,
         "aldarien/random-recipe": 20,
         "aldarien/query": 20,
-        "aldarien/loaders": 20
+        "aldarien/loaders": 20,
+        "aldarien/dbconfigloader": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
